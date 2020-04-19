@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
-import { Menu, Icon, Search} from 'semantic-ui-react';
+import { Menu, Icon, Search, Item, Image, Label} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import './App.css';
+import './images/userIcon.png';
 
 
 class NavBar extends PureComponent {
@@ -43,11 +44,15 @@ class NavBar extends PureComponent {
     
 
     return (
-        <Menu secondary fixed="top" widths={4}>
-            <Menu.Item><Icon size={resizedIcon} name='home' color='orange' /></Menu.Item>
-            <Menu.Item><Search /></Menu.Item>
-            <Menu.Item><Icon size={resizedIcon} name='microphone' color='olive' /></Menu.Item>
-        </Menu>
+        <div className={navType}>
+            <Menu secondary fixed="top" widths={4}>
+                <Menu.Item><Icon size={resizedIcon} name='home' color='orange' /></Menu.Item>
+                <Menu.Item><Search /></Menu.Item>
+                <Menu.Item><Icon size={resizedIcon} name='microphone' color='olive' /></Menu.Item>
+            </Menu>
+        </div>
+        
+       
     )
 
   }

@@ -22,11 +22,18 @@ body {
   width: 20%;
 }
 
-.ui.menu.fixed .item:last-child :last-child {
-  margin: 10px;
-  width: 20%;
+.ui.menu.fixed .item:third-child :third-child {
+  margin: 10px 0px;
+  width: 10%;
 }
 
+.ui.menu.fixed .item:last-child {
+  padding: 10px;
+  margin: 10px 400px;
+  height: 5.5em;
+  width: 150px;
+  right: 100px; 
+}
 
 .ui.search .prompt {
   border-color: coral;

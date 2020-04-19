@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Menu, Icon, Search, Item, Image, Label} from 'semantic-ui-react';
+import { Menu, Icon, Search, Item, Button} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import './App.css';
 import './images/userIcon.png';
@@ -47,12 +47,20 @@ class NavBar extends PureComponent {
         <div className={navType}>
             <Menu secondary fixed="top" widths={4}>
                 <Menu.Item><Icon size={resizedIcon} name='home' color='orange' /></Menu.Item>
-                <Menu.Item><Search /></Menu.Item>
-                <Menu.Item><Icon size={resizedIcon} name='microphone' color='olive' /></Menu.Item>
+                <Menu.Item><Search category/></Menu.Item>
+                <Menu.Item>
+                    <Link to='/recorder' ><Icon size={resizedIcon} name='microphone' color='olive' /></Link>
+                </Menu.Item>
+                <Menu.Item>
+                    <Button.Group>
+                        <Button color='teal'>Login</Button>
+                        <Button.Or />
+                        <Button positive>Signup</Button>
+                    </Button.Group>
+                </Menu.Item>
             </Menu>
         </div>
-        
-       
+
     )
 
   }

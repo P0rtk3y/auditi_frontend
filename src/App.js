@@ -1,6 +1,8 @@
 import React, { Suspense, lazy } from 'react';
 import './App.css';
 import { Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getCurrentUser } from './actions/currentUser'
 
 const NavBar = lazy(() => import('./NavBar'))
 const Recorder = lazy(() => import('./containers/RecorderForm'))
@@ -8,6 +10,11 @@ const Login = lazy(() => import('./components/Login'))
 // const Home = lazy(() => import('./components/Home'))
 
 class App extends React.Component{
+
+  componentDidMount(){
+    console.log("GETTING USER")
+    this.props.getCurrentUser()
+  }
 
   render() {
     return(
@@ -23,4 +30,4 @@ class App extends React.Component{
   
 }
 
-export default App;
+export default connect(null, {getCurrentUser})(App);

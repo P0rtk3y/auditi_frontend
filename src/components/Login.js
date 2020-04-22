@@ -16,7 +16,6 @@ const Login = ({loginForm, updateLoginForm, login}) => {
     }
 
     const handleSubmit = e => {
-        console.log(e)
         e.preventDefault()
         login(loginForm)
     }

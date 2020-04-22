@@ -9,12 +9,15 @@
 
 body {
   background-image: url('./images/icon.png');
+  background-attachment: scroll;
   background-repeat: no-repeat;
   background-size: 40%;
   background-position: calc(100% + 286px) calc(100% - 50px)
 }
 
-
+a {
+  color: white;
+}
 
 
 .ui.menu.fixed .item:first-child :last-child {

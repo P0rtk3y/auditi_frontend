@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
-import { Menu, Icon, Search, Item, Button} from 'semantic-ui-react';
+import { Menu, Icon, Search, Button, Modal } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import Login from './components/Login'
 import './App.css';
 import './images/userIcon.png';
 
@@ -47,15 +48,23 @@ class NavBar extends PureComponent {
         <div className={navType}>
             <Menu secondary fixed="top" widths={4}>
                 <Menu.Item><Icon size={resizedIcon} name='home' color='orange' /></Menu.Item>
-                <Menu.Item><Search category/></Menu.Item>
+                <Menu.Item>
+                    <Search category />
+                </Menu.Item>
                 <Menu.Item>
                     <Link to='/recorder' ><Icon size={resizedIcon} name='microphone' color='olive' /></Link>
                 </Menu.Item>
                 <Menu.Item>
                     <Button.Group>
-                        <Button color='teal'>Login</Button>
+                        <Modal
+                            size='small' 
+                            dimmer='blurring' 
+                            trigger={<Button color='teal'><Link to='/login'>Login</Link></Button>} 
+                            closeIcon>
+                            <Modal.Content> <Login /> </Modal.Content>
+                        </Modal>   
                         <Button.Or />
-                        <Button positive>Signup</Button>
+                        <Modal size='small' dimmer='blurring' trigger={<Button positive>Signup</Button>} closeIcon />
                     </Button.Group>
                 </Menu.Item>
             </Menu>

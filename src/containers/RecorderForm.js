@@ -8,11 +8,11 @@ class RecorderForm extends Component {
             category: '',
             tags: [],
             soundfile: '',
-            speaker: '',
-            source: '',
+            soundster: '',
             image: '',
             mood: '',
-            date: ''
+            date: '',
+            privateCard: false
         }
     }
 

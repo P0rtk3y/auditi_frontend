@@ -5,20 +5,20 @@ import App from './App';
 // import 'semantic-ui-css/semantic.min.css'
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux'
-import { createStore, applyMiddleware, compose } from 'redux'
+import store from './store.js'
+import { BrowserRouter as Router} from 'react-router-dom'
 // import logger from 'redux-logger'
-import thunk from 'redux-thunk'
+
 // import rootReducer from './rootReducer'
 
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-
-const middleware = [thunk]
-let store = createStore(composeEnhancers(applyMiddleware(...middleware)))
+// let store = createStore(composeEnhancers(applyMiddleware(...middleware)))
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Router>
+      <App />
+    </Router>
   </Provider>,
   document.getElementById('root')
 );

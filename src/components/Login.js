@@ -21,6 +21,7 @@ const Login = ({loginForm, updateLoginForm, login}) => {
     }
 
 
+
     return (
         <div className="formInfo">
             <Form onSubmit={handleSubmit}>
@@ -29,7 +30,9 @@ const Login = ({loginForm, updateLoginForm, login}) => {
                     <Form.Input fluid type="Password" name='password' label="Password" placeholder='Password' value={loginForm.password} onChange={handleChange} />
                 </Form.Group>
                 <Form.Checkbox label='I agree to the Terms and Conditions' />
-                <Button type='submit'>Submit</Button>
+                <Button type='submit' floated='right' color='orange'>Submit</Button>
+                <br></br>
+                <br></br>
             </Form>
         </div>
     )

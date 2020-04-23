@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Login from './components/Login'
 import Logout from './components/Logout'
+import Signup from './components/Signup'
 import './App.css';
 import './images/userIcon.png';
 
@@ -24,18 +25,33 @@ const NavBar = ({currentUser, loggedIn}) => {
                   {loggedIn ? 
                         <Logout />
                           :
-                        <Modal
-                            size='small' 
-                            dimmer='blurring' 
-                            trigger={
-                                <Button color='teal' className='loginButton' fluid>
-                                    <Link to='/login'>Login</Link>
-                                </Button>} 
-                            closeIcon>
-                            <Modal.Content> 
-                                <Login /> 
-                            </Modal.Content>
-                        </Modal>   
+                        <Button.Group>
+                          <Modal
+                              size='small' 
+                              dimmer='blurring' 
+                              trigger={
+                                  <Button color='teal' className='loginButton' fluid>
+                                      <Link to='/login'>Login</Link>
+                                  </Button>} 
+                              closeIcon>
+                              <Modal.Content> 
+                                  <Login /> 
+                              </Modal.Content>
+                          </Modal>
+                          <Button.Or />
+                          <Modal
+                              size='small' 
+                              dimmer='blurring' 
+                              trigger={
+                                  <Button color='green' className='loginButton' fluid>
+                                      <Link to='/signup'>Signup</Link>
+                                  </Button>} 
+                              closeIcon>
+                              <Modal.Content> 
+                                  <Signup /> 
+                              </Modal.Content>
+                          </Modal>
+                        </Button.Group>   
                   }
                 </Menu.Item>
             </Menu>

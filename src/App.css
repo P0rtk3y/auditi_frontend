@@ -46,6 +46,11 @@ a {
   font-size: 1em;
 }
 
+div.ui.ui.secondary.item.menu {
+  background-color: #D8ECE8
+  
+}
+
 .userInfo {
   float: right;
   opacity: 30%;
@@ -101,7 +106,7 @@ a {
   border-radius: 50%;
   position: absolute;
   left: 470px;
-  top: 337px
+  top: 337px;
 }
 
 .gear2 {
@@ -115,7 +120,16 @@ a {
   border-radius: 50%;
   position: absolute;
   left: 723px;
-  top: 337px
+  top: 337px;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
 }
 
 .soundsterContainer {

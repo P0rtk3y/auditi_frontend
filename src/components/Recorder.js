@@ -14,8 +14,8 @@ export class Recorder extends React.Component {
         soundster: '',
         record: false
       }
-   
     }
+
    
     startRecording = () => {
       this.setState({
@@ -36,7 +36,21 @@ export class Recorder extends React.Component {
     onStop(recordedBlob) {
       console.log('recordedBlob is: ', recordedBlob);
     }
+
+
+    
     render(){
+
+        const rotateGears = e => {
+            document.querySelector('.gear1').style.animation = "rotation 8s infinite linear"
+            document.querySelector('.gear2').style.animation = "rotation 8s infinite linear"
+        }
+
+        const stopGears = e => {
+            document.querySelector('.gear1').style.animation = ""
+            document.querySelector('.gear2').style.animation = ""
+        }
+
         return (
             <div className='mainRecContainer'>
                 <div className='cassette'>
@@ -68,15 +82,15 @@ export class Recorder extends React.Component {
                         />
                 </div>
                 <Button.Group icon>
-                    <Button className='recordButton' color="olive">
+                    <Button className='recordButton' color="olive" onClick={rotateGears}>
                         <Icon name='microphone' />
                         Record 
                     </Button>
-                    <Button className='pauseButton'>
+                    <Button className='pauseButton' onClick={stopGears}>
                         <Icon name='pause' />
                         Pause   
                     </Button>
-                    <Button className='playButton'>
+                    <Button className='playButton' onClick={rotateGears}>
                         <Icon name='play' />
                         Play
                     </Button>

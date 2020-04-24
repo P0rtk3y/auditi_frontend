@@ -103,7 +103,7 @@ div.ui.ui.secondary.item.menu {
   border-radius: 50%;
   position: absolute;
   left: 470px;
-  top: 337px;
+  top: 137px;
 }
 
 .gear2 {
@@ -117,7 +117,7 @@ div.ui.ui.secondary.item.menu {
   border-radius: 50%;
   position: absolute;
   left: 723px;
-  top: 337px;
+  top: 137px;
 }
 
 @keyframes rotation {
@@ -130,14 +130,20 @@ div.ui.ui.secondary.item.menu {
 }
 
 .soundsterContainer {
-  width: 400px;
-  height: 200px;
+  width: 600px;
+  height: 380px;
   
 }
 
 .soundster-input {
-  top: 50px;
-  left: 110px;
+  width: 400px;
+  margin-left: 100px;
 }
+
+div.field.soundster-input-box :first-child{
+  margin-top: 20px;
+  margin-left: 10px;
+}
+
 
 

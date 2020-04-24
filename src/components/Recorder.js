@@ -61,52 +61,55 @@ export class Recorder extends React.Component {
 
         return (
             <div className='mainRecContainer'>
-                <div className='cassette'>
-                    <div className='gear1'>
-                        <span className='helper'></span>
+                <Form className='soundsterForm'> 
+                    <div className='cassette'>
+                        <div className='gear1'>
+                            <span className='helper'></span>
+                        </div>
+                        <div className='gear2'>
+                            <span className='helper'></span>
+                        </div>
+                        <div className='soundsterContainer'>
+                            <div className='soundster-input'>
+                                <Form.Input onChange={this.handleChange}
+                                    className="soundster-input-box"
+                                    placeholder="Who's the soundster?"
+                                    name='soundster'
+                                    value={this.state.soundster}
+                                />
+                            </div>
+                        </div>
+                        
                     </div>
-                    <div className='gear2'>
-                        <span className='helper'></span>
-                    </div>
-                    <div className='soundsterContainer'>
-                        <Form className='soundster-input'>
-                            <Form.Input onChange={this.handleChange}
-                                placeholder="Who's the soundster?"
-                                name='soundster'
-                                value={this.state.soundster}
+                    <div className='recordingContainer'>
+                        <ReactMic
+                            record={this.state.record}
+                            className="sound-wave"
+                            onStop={this.onStop}
+                            strokeColor="#D4E6D7"
+                            backgroundColor="#8FC6B4" 
+                            duration={25}
                             />
-                        </Form>
                     </div>
-                    
-                </div>
-                <div className='recordingContainer'>
-                    <ReactMic
-                        record={this.state.record}
-                        className="sound-wave"
-                        onStop={this.onStop}
-                        strokeColor="#D4E6D7"
-                        backgroundColor="#8FC6B4" 
-                        duration={25}
-                        />
-                </div>
-                <Button.Group icon>
-                    <Button className='recordButton' color="olive" onClick={rotateGears}>
-                        <Icon name='microphone' />
-                        Record 
-                    </Button>
-                    <Button className='stopButton' onClick={stopGears}>
-                        <Icon name='stop' />
-                        Stop   
-                    </Button>
-                    <Button className='playButton' onClick={playGears}>
-                        <Icon name='play' />
-                        Play
-                    </Button>
-                    <Button className= 'saveButton' color="orange">
-                        <Icon name='paper plane outline' />
-                        Save
-                    </Button>
-                </Button.Group>
+                    <Button.Group icon>
+                        <Button className='recordButton' color="olive" onClick={rotateGears}>
+                            <Icon name='microphone' />
+                            Record 
+                        </Button>
+                        <Button className='stopButton' onClick={stopGears}>
+                            <Icon name='stop' />
+                            Stop   
+                        </Button>
+                        <Button className='playButton' onClick={playGears}>
+                            <Icon name='play' />
+                            Play
+                        </Button>
+                        <Button className= 'saveButton' color="orange">
+                            <Icon name='paper plane outline' />
+                            Save
+                        </Button>
+                    </Button.Group>
+                </Form>
             </div>
         )
     }

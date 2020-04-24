@@ -21,6 +21,7 @@ export class Recorder extends React.Component {
       this.setState({
         record: true
       });
+      console.log("RECORDING!")
     }
    
     stopRecording = () => {
@@ -44,11 +45,18 @@ export class Recorder extends React.Component {
         const rotateGears = e => {
             document.querySelector('.gear1').style.animation = "rotation 8s infinite linear"
             document.querySelector('.gear2').style.animation = "rotation 8s infinite linear"
+            this.startRecording()
         }
 
         const stopGears = e => {
             document.querySelector('.gear1').style.animation = ""
             document.querySelector('.gear2').style.animation = ""
+            this.stopRecording()
+        }
+
+        const playGears = e => {
+            document.querySelector('.gear1').style.animation = "rotation 8s infinite linear"
+            document.querySelector('.gear2').style.animation = "rotation 8s infinite linear"
         }
 
         return (
@@ -71,7 +79,7 @@ export class Recorder extends React.Component {
                     </div>
                     
                 </div>
-                <div classname='recordingContainer'>
+                <div className='recordingContainer'>
                     <ReactMic
                         record={this.state.record}
                         className="sound-wave"
@@ -86,11 +94,11 @@ export class Recorder extends React.Component {
                         <Icon name='microphone' />
                         Record 
                     </Button>
-                    <Button className='pauseButton' onClick={stopGears}>
-                        <Icon name='pause' />
-                        Pause   
+                    <Button className='stopButton' onClick={stopGears}>
+                        <Icon name='stop' />
+                        Stop   
                     </Button>
-                    <Button className='playButton' onClick={rotateGears}>
+                    <Button className='playButton' onClick={playGears}>
                         <Icon name='play' />
                         Play
                     </Button>

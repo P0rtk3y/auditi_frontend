@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import Login from './components/Login'
 import Logout from './components/Logout'
 import Signup from './components/Signup'
+import Recorder from './components/Recorder'
 import './App.css';
 import './images/userIcon.png';
 
@@ -14,12 +15,14 @@ const NavBar = ({currentUser, loggedIn}) => {
     return (
         <div className="navBar">
             <Menu secondary fixed="top" widths={4}>
-                <Menu.Item><Icon size='huge' name='home' color='orange' /></Menu.Item>
+                <Menu.Item>
+                  <Link to='/'><Icon size='huge' name='home' color='orange' /></Link>
+                </Menu.Item>
                 <Menu.Item>
                     <Search category />
                 </Menu.Item>
                 <Menu.Item>
-                    <Link to='/recorder' ><Icon size='huge' name='microphone' color='olive' /></Link>
+                  <Link to='/recorder' ><Icon size='huge' name='microphone' color='olive' /></Link>
                 </Menu.Item>
                 <Menu.Item className='loginButtons'>
                   {loggedIn ? 

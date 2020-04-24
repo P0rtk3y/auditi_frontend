@@ -1,8 +1,10 @@
-import React from 'react';
-import './App.css';
-import { connect } from 'react-redux';
+import React from 'react'
+import './App.css'
+import { connect } from 'react-redux'
 import { getCurrentUser } from './actions/currentUser'
 import NavBar from './NavBar.js'
+import Recorder from './components/Recorder'
+import Home from './components/Home'
 import { Route, Switch, withRouter } from 'react-router-dom'
 
 
@@ -15,7 +17,13 @@ class App extends React.Component{
   render() {
     return (
       <div className="App">
-        <NavBar />
+        <div className="navBar">
+          <NavBar />
+        </div>
+        <div className="contentBody">
+          <Route exact path="/" component={ Home } />
+          <Route exact path="/recorder" component={ Recorder } />
+        </div>
         {/* <Route exact path='/logout' component={Logout} />  */}
       </div>
     )

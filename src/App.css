@@ -21,7 +21,7 @@ a {
 
 
 .ui.menu.fixed .item:first-child :last-child {
-  margin: 10px;
+  margin: 10px 20px;
   width: 20%;
 }
 
@@ -40,7 +40,7 @@ a {
 
 .ui.search .prompt {
   border-color: coral;
-  width: 45em;
+  width: 40em;
   padding: 10px 20px 10px 40px;
   height: 5.5em;
   font-size: 1em;
@@ -53,6 +53,80 @@ a {
   margin-top: 20px;
 }
 
+.contentBody {
+  margin-top: 200px;
+  margin-right: 140px;
+}
 
+.cassette {
+  margin: 0px 140px 0px 334px;
+  height: 380px;
+  width: 600px;
+  border-radius: 25px;
+  background: url('./images/cassette.png');
+  border-radius: 25px;
+  background-repeat: no-repeat;
+  background-size: 600px;
+  background-position: center;
+  
+}
+
+.recordingContainer {
+  height: 380px;
+}
+
+.sound-wave {
+  margin: 20px 140px 0px 145px;
+  height: 100px;
+}
+
+.helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.recordingContainer {
+  margin: 0px 10px 0px 10px;
+}
+
+.gear1 {
+  z-index: 80px;
+  height: 72px;
+  width: 72px;
+  background: url('./images/gears.png');
+  background-size: 73px;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 50%;
+  position: absolute;
+  left: 470px;
+  top: 337px
+}
+
+.gear2 {
+  z-index: 80px;
+  height: 72px;
+  width: 72px;
+  background: url('./images/gears.png');
+  background-size: 73px;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 50%;
+  position: absolute;
+  left: 723px;
+  top: 337px
+}
+
+.soundsterContainer {
+  width: 400px;
+  height: 200px;
+  
+}
+
+.soundster-input {
+  top: 50px;
+  left: 110px;
+}
 
 

@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import Login from './components/Login'
 import Logout from './components/Logout'
 import Signup from './components/Signup'
-import Recorder from './components/Recorder'
 import './images/userIcon.png';
 
 

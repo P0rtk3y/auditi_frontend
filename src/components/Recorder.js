@@ -1,16 +1,17 @@
 
 import React from 'react'
 import { connect } from 'react-redux'
-import { Button, Icon, Input, Form } from 'semantic-ui-react'
+import { Icon, Form, Dropdown } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { ReactMic } from 'react-mic'
-import { addAudioData } from '../actions/audioForm.js'
+import { updateAudioForm } from '../actions/audioForm.js'
 
 
 class Recorder extends React.Component {
-    constructor(props) {
+    constructor({audioForm}) {
       super();
       this.state = {
+        ...audioForm,
         record: false,
         soundfile: {
             recording: '',
@@ -23,6 +24,7 @@ class Recorder extends React.Component {
       this.setState({
         record: true
       });
+
     }
    
     stopRecording = () => {
@@ -32,8 +34,8 @@ class Recorder extends React.Component {
     }
 
     playRecording = () => {
-        if (this.state.soundfile.recording){
-            this.state.recording.play()
+        if (this.setState.soundfile.recording){
+            this.setState.recording.play()
         }
     }
    
@@ -47,15 +49,17 @@ class Recorder extends React.Component {
 
     handleChange = e => {
         const {name, value} = e.target 
-        this.setState({
-            [name]: value
-        })
+        updateAudioForm(name, value)
     }
 
+    handleSubmit = e => {
+        e.preventDefault()
+    }
 
+   
     
     render(){
-
+    
         const rotateGears = e => {
             document.querySelector('.gear1').style.animation = "rotation 8s infinite linear"
             document.querySelector('.gear2').style.animation = "rotation 8s infinite linear"
@@ -74,9 +78,20 @@ class Recorder extends React.Component {
             this.playRecording()
         }
 
+        const categoryOptions = [
+            { key:1, text: 'Quotes', value: 'quotes', icon: 'book'},
+            { key:2, text: 'Music', value: 'music', icon: 'music'},
+            { key:3, text: 'Nature', value: 'nature', icon: 'leaf'},
+            { key:4, text: 'Joke', value: 'joke', icon: 'smile'},
+            { key:5, text: 'Medical', value: 'medical', icon: 'stethoscope'},
+            { key:6, text: 'Personal', value: 'personal', icon: 'unlock alternate'},
+            { key:7, text: 'Mechanical', value: 'mechanical', icon: 'wrench'},
+            { key:8, text: 'Other', value: 'other', icon: 'find'},
+        ]
+
         return (
             <div className='mainRecContainer'>
-                <Form className='soundsterForm'> 
+                <Form className='soundsterForm' onSubmit={this.handleSubmit}> 
                     <div className='cassette'>
                         <div className='gear1'>
                             <span className='helper'></span>
@@ -90,7 +105,13 @@ class Recorder extends React.Component {
                                     className="soundster-input-box"
                                     placeholder="Who's the soundster?"
                                     name='soundster'
-                                    value={this.props.soundster}
+                                />
+                            </div>
+                            <div className='category-input'>
+                                <Form.Select onChange={this.handleChange} 
+                                    options={categoryOptions}
+                                    placeholder="Category"
+                                    name='category' 
                                 />
                             </div>
                         </div>
@@ -98,7 +119,7 @@ class Recorder extends React.Component {
                     </div>
                     <div className='recordingContainer'>
                         <ReactMic
-                            record={this.state.record}
+                            record={this.setState.record}
                             className="sound-wave"
                             onStop={this.onStop}
                             strokeColor="#D4E6D7"
@@ -106,7 +127,7 @@ class Recorder extends React.Component {
                             duration={25}
                             />
                     </div>
-                    <Form.Group icon className="recorderButtons" style={{margin: "10px 0px 10px 420px"}}>
+                    <Form.Group className="recorderButtons" style={{margin: "10px 0px 10px 420px"}}>
                         <Form.Button className='recordButton' color="olive" onClick={rotateGears}>
                             <Icon name='microphone' />
                             Record 
@@ -119,7 +140,7 @@ class Recorder extends React.Component {
                             <Icon name='play' />
                             Play
                         </Form.Button>
-                        <Form.Button className= 'saveButton' color="orange">
+                        <Form.Button type='Submit' className= 'saveButton' color="orange">
                             <Icon name='paper plane outline' />
                             Save
                         </Form.Button>
@@ -131,9 +152,11 @@ class Recorder extends React.Component {
 }
 
 const mapStateToProps = state => {
+    const userId = state.currentUser ? state.currentUser.id : ""
     return {
-        audioForm: state.audioForm
+        audioForm: state.audioForm,
+        userId
     }
 }
 
-export default connect(mapStateToProps)(Recorder)
+export default connect(mapStateToProps, {updateAudioForm})(Recorder)

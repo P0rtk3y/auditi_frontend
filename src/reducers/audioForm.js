@@ -3,16 +3,20 @@ const initialState = {
     tags: [],
     soundfile: '',
     soundster: '',
-    image: '',
+    image: 'https://loremflickr.com/g/200/200/',
     mood: '',
-    date: '',
+    date: Date(Date.now()).toString(),
     privateCard: false
 }
 
 export default (state = initialState, action) => {
     switch (action.type){
-        case "ADD_AUDIO_DATA":
-            return action.formData
+        case "UPDATE_AUDIO_FORM":
+            const updateData = {
+                ...state,
+                [action.formData.name]: action.formData.value
+            }
+            return updateData
         default:
             return state
     }

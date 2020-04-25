@@ -1,6 +1,7 @@
-export const addAudioData = formData => {
+export const updateAudioForm = (name, value) => {
+    const formData = {name, value}
     return {
-        type: "ADD_AUDIO_DATA",
+        type: "UPDATE_AUDIO_FORM",
         formData
     }
 }

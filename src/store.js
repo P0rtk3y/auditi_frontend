@@ -11,7 +11,7 @@ const reducer = combineReducers({
     currentUser,
     loginForm,
     signupForm,
-    audioForm
+    audioForm,
   })
   
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose

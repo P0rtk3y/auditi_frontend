@@ -5,7 +5,6 @@ const initialState = {
     soundster: '',
     image: 'https://loremflickr.com/g/200/200/',
     mood: '',
-    date: Date(Date.now()).toString(),
     privateCard: false
 }
 

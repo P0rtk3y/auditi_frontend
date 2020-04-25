@@ -151,3 +151,9 @@ div.field.soundster-input-box :first-child{
   width: 50px;
 }
 
+.tag-input {
+  margin-top: 110px;
+  margin-left: 20px;
+  width: 100px;
+}
+

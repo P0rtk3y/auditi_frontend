@@ -1,10 +1,11 @@
 
 import React from 'react'
 import { connect } from 'react-redux'
-import { Icon, Form, Dropdown } from 'semantic-ui-react'
+import { Icon, Form, Dropdown, Button, Grid} from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { ReactMic } from 'react-mic'
 import Pizzicato from 'pizzicato'
+import OnEvent from 'react-onevent'
 import { updateAudioForm } from '../actions/audioForm.js'
 
 
@@ -13,11 +14,13 @@ class Recorder extends React.Component {
       super();
       this.state = {
         record: false,
-        soundfile: ''
+        soundfile: '',
+        tags: [],
+        newTag: ''
         }
       }
     
-   
+    //Recording Methods
     startRecording = () => {
       this.setState({
         record: true
@@ -38,7 +41,6 @@ class Recorder extends React.Component {
         
     }
 
-   
     onStop = (recordedBlob) => {
         const getSound = new Pizzicato.Sound({
             source: 'wave',
@@ -49,6 +51,28 @@ class Recorder extends React.Component {
             this.setState({soundfile: file})
         })
       console.log('recordedBlob is: ', recordedBlob);
+    }
+
+    // Tag input methods
+
+    addTag = e => {
+        let newNoSpaceTag = `#${e.target.value.trim()}`
+        if(!this.state.tags.includes(newNoSpaceTag)){
+            this.setState({
+                tags: [...this.state.tags, newNoSpaceTag]
+            })
+            e.target.value = ''
+        }
+        console.log(this.state.tags)   
+    }
+
+    deleteTag = removeTag => {
+        const filteredTags = this.state.tags.filter(tag => {
+            return tag !== removeTag
+        })        
+        this.setState({
+            tags: filteredTags
+        })  
     }
 
     handleChange = e => {
@@ -63,6 +87,8 @@ class Recorder extends React.Component {
    
     
     render(){
+
+        //animate gears 
         const rotateGears = e => {
             document.querySelector('.gear1').style.animation = "rotation 8s infinite linear"
             document.querySelector('.gear2').style.animation = "rotation 8s infinite linear"
@@ -81,6 +107,8 @@ class Recorder extends React.Component {
             this.playRecording()
         }
 
+
+        //options for category input
         const categoryOptions = [
             { key:1, text: 'Quotes', value: 'quotes', icon: 'book'},
             { key:2, text: 'Music', value: 'music', icon: 'music'},
@@ -116,6 +144,35 @@ class Recorder extends React.Component {
                                     placeholder="Category"
                                     name='category' 
                                 />
+                            </div>
+                            <div className='tag-input' style={{width: "500px"}}>
+                                <OnEvent space={this.addTag}>
+                                    <Grid>
+                                        <Grid.Row columns={2}>
+                                            <Grid.Column>
+                                                <Form.Input
+                                                    style={{width: "200px"}}
+                                                    placeholder="Add tags"
+                                                    name='add tags'
+                                                >
+                                                    <input />
+                                                    {this.state.tags.map((tag, index) => {
+                                                        return <Grid.Column>
+                                                                    <Button 
+                                                                    icon name='delete'
+                                                                    key={index}
+                                                                    labelPosition='right'
+                                                                    style={{margin:"20px 40px 0px 60x"}}
+                                                                    >{tag}
+                                                                        <Icon name='delete' />
+                                                                    </Button>
+                                                                </Grid.Column>
+                                                    })}
+                                                </Form.Input>
+                                            </Grid.Column>
+                                        </Grid.Row>
+                                    </Grid>
+                                </OnEvent>
                             </div>
                         </div>
                         

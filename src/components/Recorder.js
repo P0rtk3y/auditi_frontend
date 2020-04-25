@@ -87,7 +87,6 @@ class Recorder extends React.Component {
    
     
     render(){
-
         //animate gears 
         const rotateGears = e => {
             document.querySelector('.gear1').style.animation = "rotation 8s infinite linear"
@@ -146,33 +145,37 @@ class Recorder extends React.Component {
                                 />
                             </div>
                             <div className='tag-input' style={{width: "500px"}}>
-                                <OnEvent space={this.addTag}>
                                     <Grid>
                                         <Grid.Row columns={2}>
                                             <Grid.Column>
-                                                <Form.Input
-                                                    style={{width: "200px"}}
-                                                    placeholder="Add tags"
-                                                    name='add tags'
-                                                >
-                                                    <input />
-                                                    {this.state.tags.map((tag, index) => {
-                                                        return <Grid.Column>
-                                                                    <Button 
-                                                                    icon name='delete'
-                                                                    key={index}
-                                                                    labelPosition='right'
-                                                                    style={{margin:"20px 40px 0px 60x"}}
-                                                                    >{tag}
-                                                                        <Icon name='delete' />
-                                                                    </Button>
-                                                                </Grid.Column>
-                                                    })}
-                                                </Form.Input>
+                                                <OnEvent space={this.addTag}>
+                                                    <Form.Input
+                                                        style={{width: "200px"}}
+                                                        placeholder="Add tags"
+                                                        name='add tags'
+                                                    >
+                                                        <input />
+                                                    </Form.Input>
+                                                </OnEvent>
+                                            </Grid.Column>
+                                            <Grid.Column>
+                                                <Grid>
+                                                    <Grid.Row columns={2}>
+                                                            {this.state.tags.map((tag, index) => {
+                                                                return  <Button onClick={e => this.deleteTag(tag)}
+                                                                            icon name='delete'
+                                                                            key={index}
+                                                                            labelPosition='right'
+                                                                            style={{margin:"20px 40px 0px 60x"}}
+                                                                            >{tag}
+                                                                                <Icon name='delete' />
+                                                                        </Button>
+                                                            })}
+                                                    </Grid.Row>
+                                                </Grid>
                                             </Grid.Column>
                                         </Grid.Row>
                                     </Grid>
-                                </OnEvent>
                             </div>
                         </div>
                         

@@ -1,33 +1,40 @@
 
 import React from 'react'
 import { connect } from 'react-redux'
-import { logout } from '../actions/currentUser.js'
 import { Button, Icon, Input, Form } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { ReactMic } from 'react-mic'
+import { addAudioData } from '../actions/audioForm.js'
 
 
-export class Recorder extends React.Component {
+class Recorder extends React.Component {
     constructor(props) {
-      super(props);
+      super();
       this.state = {
-        soundster: '',
-        record: false
+        record: false,
+        soundfile: {
+            recording: '',
+            blob: ''
+        }
       }
     }
-
    
     startRecording = () => {
       this.setState({
         record: true
       });
-      console.log("RECORDING!")
     }
    
     stopRecording = () => {
       this.setState({
         record: false
       });
+    }
+
+    playRecording = () => {
+        if (this.state.soundfile.recording){
+            this.state.recording.play()
+        }
     }
    
     onData(recordedBlob) {
@@ -36,6 +43,13 @@ export class Recorder extends React.Component {
    
     onStop(recordedBlob) {
       console.log('recordedBlob is: ', recordedBlob);
+    }
+
+    handleChange = e => {
+        const {name, value} = e.target 
+        this.setState({
+            [name]: value
+        })
     }
 
 
@@ -57,6 +71,7 @@ export class Recorder extends React.Component {
         const playGears = e => {
             document.querySelector('.gear1').style.animation = "rotation 8s infinite linear"
             document.querySelector('.gear2').style.animation = "rotation 8s infinite linear"
+            this.playRecording()
         }
 
         return (
@@ -75,7 +90,7 @@ export class Recorder extends React.Component {
                                     className="soundster-input-box"
                                     placeholder="Who's the soundster?"
                                     name='soundster'
-                                    value={this.state.soundster}
+                                    value={this.props.soundster}
                                 />
                             </div>
                         </div>
@@ -91,28 +106,34 @@ export class Recorder extends React.Component {
                             duration={25}
                             />
                     </div>
-                    <Button.Group icon>
-                        <Button className='recordButton' color="olive" onClick={rotateGears}>
+                    <Form.Group icon className="recorderButtons" style={{margin: "10px 0px 10px 420px"}}>
+                        <Form.Button className='recordButton' color="olive" onClick={rotateGears}>
                             <Icon name='microphone' />
                             Record 
-                        </Button>
-                        <Button className='stopButton' onClick={stopGears}>
+                        </Form.Button>
+                        <Form.Button className='stopButton' onClick={stopGears}>
                             <Icon name='stop' />
                             Stop   
-                        </Button>
-                        <Button className='playButton' onClick={playGears}>
+                        </Form.Button>
+                        <Form.Button className='playButton' onClick={playGears}>
                             <Icon name='play' />
                             Play
-                        </Button>
-                        <Button className= 'saveButton' color="orange">
+                        </Form.Button>
+                        <Form.Button className= 'saveButton' color="orange">
                             <Icon name='paper plane outline' />
                             Save
-                        </Button>
-                    </Button.Group>
+                        </Form.Button>
+                    </Form.Group>
                 </Form>
             </div>
         )
     }
 }
 
-export default Recorder
+const mapStateToProps = state => {
+    return {
+        audioForm: state.audioForm
+    }
+}
+
+export default connect(mapStateToProps)(Recorder)

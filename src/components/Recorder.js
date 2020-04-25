@@ -4,21 +4,19 @@ import { connect } from 'react-redux'
 import { Icon, Form, Dropdown } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { ReactMic } from 'react-mic'
+import Pizzicato from 'pizzicato'
 import { updateAudioForm } from '../actions/audioForm.js'
 
 
 class Recorder extends React.Component {
-    constructor({audioForm}) {
+    constructor(props) {
       super();
       this.state = {
-        ...audioForm,
         record: false,
-        soundfile: {
-            recording: '',
-            blob: ''
+        soundfile: ''
         }
       }
-    }
+    
    
     startRecording = () => {
       this.setState({
@@ -34,16 +32,22 @@ class Recorder extends React.Component {
     }
 
     playRecording = () => {
-        if (this.setState.soundfile.recording){
-            this.setState.recording.play()
+        if (this.state.soundfile){
+           this.state.soundfile.play()
         }
+        
     }
+
    
-    onData(recordedBlob) {
-      console.log('chunk of real-time data is: ', recordedBlob);
-    }
-   
-    onStop(recordedBlob) {
+    onStop = (recordedBlob) => {
+        const getSound = new Pizzicato.Sound({
+            source: 'wave',
+            options: {path: [recordedBlob.blobURL]}
+        }, () => {
+            let file = new Audio()
+            file.src = recordedBlob.blobURL
+            this.setState({soundfile: file})
+        })
       console.log('recordedBlob is: ', recordedBlob);
     }
 
@@ -59,7 +63,6 @@ class Recorder extends React.Component {
    
     
     render(){
-    
         const rotateGears = e => {
             document.querySelector('.gear1').style.animation = "rotation 8s infinite linear"
             document.querySelector('.gear2').style.animation = "rotation 8s infinite linear"
@@ -83,8 +86,8 @@ class Recorder extends React.Component {
             { key:2, text: 'Music', value: 'music', icon: 'music'},
             { key:3, text: 'Nature', value: 'nature', icon: 'leaf'},
             { key:4, text: 'Joke', value: 'joke', icon: 'smile'},
-            { key:5, text: 'Medical', value: 'medical', icon: 'stethoscope'},
-            { key:6, text: 'Personal', value: 'personal', icon: 'unlock alternate'},
+            { key:5, text: 'Health', value: 'health', icon: 'hand spock'},
+            { key:6, text: 'Personal', value: 'personal', icon: 'user secret'},
             { key:7, text: 'Mechanical', value: 'mechanical', icon: 'wrench'},
             { key:8, text: 'Other', value: 'other', icon: 'find'},
         ]
@@ -119,7 +122,7 @@ class Recorder extends React.Component {
                     </div>
                     <div className='recordingContainer'>
                         <ReactMic
-                            record={this.setState.record}
+                            record={this.state.record}
                             className="sound-wave"
                             onStop={this.onStop}
                             strokeColor="#D4E6D7"

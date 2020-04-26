@@ -19,14 +19,8 @@ export default (state = initialState, action) => {
                 storedBlob: action.recording.blob
             }
         case "UPDATE_AUDIO_FORM":
-            const updateData = {
-                ...state,
-                [action.formData.name]: action.formData.value
-            }
-            return updateData
+            return action.formData
         default:
             return state
     }
 }
-
-console.log(initialState.storedRecording)

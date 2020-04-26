@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { ReactMic } from 'react-mic'
 import Pizzicato from 'pizzicato'
 import OnEvent from 'react-onevent'
-import { addRecording } from '../actions/audioForm.js'
+import { addRecording, updateAudioForm} from '../actions/audioForm.js'
 
 
 class Recorder extends React.Component {
@@ -50,10 +50,9 @@ class Recorder extends React.Component {
             options: {path: [micFeedback.blobURL]}
         }, () => {
             this.setState({soundfile: getSound})
-            this.props.addRecording({soundfile: getSound, blob: micFeedback.blobURL})
+            // this.props.addRecording({soundfile: getSound, blob: micFeedback.blobURL})
             // getSound.play()
         })
-
     //   console.log('recordedBlob is: ', recording);
     }
 
@@ -86,15 +85,14 @@ class Recorder extends React.Component {
 
     handleSubmit = e => {
         e.preventDefault()
-        let recorderFormData = {
+        const recorderFormData = {
             category: this.state.category,
             tags: this.state.tags,
             soundfile: this.state.soundfile,
             soundster: this.state.soundster,
-            image: `https://loremflickr.com/g/200/200/${this.state.tags[0]}`,
-            mood: ''
+            image: `https://loremflickr.com/g/200/200/${this.state.tags[0]}`
         }
-        // this.props.updateAudioForm(recorderFormData)
+        this.props.updateAudioForm(recorderFormData)
     }
 
 
@@ -231,19 +229,19 @@ class Recorder extends React.Component {
     }
 }
 
-// const mapStateToProps = state => {
-//     const userId = state.currentUser ? state.currentUser.id : ""
-//     return {
-//         audioForm: state.audioForm,
-//         userId
-//     }
-// }
-
 const mapStateToProps = state => {
+    const userId = state.currentUser ? state.currentUser.id : ""
     return {
-        storedRecording: state.storedRecording,
-        blob: state.storedBlob
+        audioForm: state.audioForm,
+        userId
     }
 }
 
-export default connect(mapStateToProps, {addRecording})(Recorder)
+// const mapStateToProps = state => {
+//     return {
+//         storedRecording: state.storedRecording,
+//         blob: state.storedBlob
+//     }
+// }
+
+export default connect(mapStateToProps, {addRecording, updateAudioForm})(Recorder)

@@ -63,8 +63,7 @@ class Recorder extends React.Component {
                 tags: [...this.state.tags, newNoSpaceTag]
             })
             e.target.value = ''
-        }
-        console.log(this.state.tags)   
+        } 
     }
 
     deleteTag = removeTag => {
@@ -84,6 +83,7 @@ class Recorder extends React.Component {
 
     handleSubmit = e => {
         e.preventDefault()
+        console.log(this.state.soundfile)
         let recorderFormData = {
             category: this.state.category,
             tags: this.state.tags,

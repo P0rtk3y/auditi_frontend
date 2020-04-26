@@ -1,5 +1,6 @@
 import {resetSignupForm} from './signupForm'
 import {resetLoginForm} from './loginForm'
+import {getMyAudiocards} from './myAudioCards'
 
 //synchronous action creators
 export const setCurrentUser = user => {
@@ -33,6 +34,7 @@ export const login = credentials => {
                     alert(user.error)
                 } else {
                     dispatch(setCurrentUser(user.data))
+                    dispatch(getMyAudiocards())
                     dispatch(resetLoginForm())
                 }
             })
@@ -81,6 +83,7 @@ export const getCurrentUser = () => {
                     alert(response.error)
                 } else {
                     dispatch(setCurrentUser(response.data))
+                    dispatch(getMyAudiocards())
                 }
             })
             .catch(console.log)

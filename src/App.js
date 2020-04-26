@@ -5,7 +5,7 @@ import { getCurrentUser } from './actions/currentUser'
 import NavBar from './NavBar.js'
 import Recorder from './components/Recorder'
 import Home from './components/Home'
-import { Route, Switch, withRouter } from 'react-router-dom'
+import { Route, withRouter } from 'react-router-dom'
 
 
 class App extends React.Component{

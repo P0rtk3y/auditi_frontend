@@ -1,7 +1,7 @@
 
 import React from 'react'
 import { connect } from 'react-redux'
-import { Icon, Form, Dropdown, Button, Grid} from 'semantic-ui-react'
+import { Icon, Form, Button, Grid, Select} from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { ReactMic } from 'react-mic'
 import Pizzicato from 'pizzicato'
@@ -16,7 +16,8 @@ class Recorder extends React.Component {
         record: false,
         soundfile: '',
         tags: [],
-        newTag: ''
+        category: '',
+        soundster: ''
         }
       }
     
@@ -56,7 +57,7 @@ class Recorder extends React.Component {
     // Tag input methods
 
     addTag = e => {
-        let newNoSpaceTag = `#${e.target.value.trim()}`
+        let newNoSpaceTag = `${e.target.value.trim()}`
         if(!this.state.tags.includes(newNoSpaceTag)){
             this.setState({
                 tags: [...this.state.tags, newNoSpaceTag]
@@ -75,14 +76,17 @@ class Recorder extends React.Component {
         })  
     }
 
-    handleChange = e => {
-        const {name, value} = e.target 
-        updateAudioForm(name, value)
+    handleChange = (e, {name,value}) => {
+        this.setState({
+            [name]: value
+        })
     }
 
     handleSubmit = e => {
         e.preventDefault()
+        this.resetForm()
     }
+
 
    
     
@@ -109,7 +113,7 @@ class Recorder extends React.Component {
 
         //options for category input
         const categoryOptions = [
-            { key:1, text: 'Quotes', value: 'quotes', icon: 'book'},
+            { key:1, value: 'quotes', text: 'Quotes', icon: 'book'},
             { key:2, text: 'Music', value: 'music', icon: 'music'},
             { key:3, text: 'Nature', value: 'nature', icon: 'leaf'},
             { key:4, text: 'Joke', value: 'joke', icon: 'smile'},
@@ -133,18 +137,18 @@ class Recorder extends React.Component {
                             <div className='soundster-input'>
                                 <Form.Input onChange={this.handleChange}
                                     className="soundster-input-box"
-                                    placeholder="Who's the soundster?"
+                                    placeholder="Sound source"
                                     name='soundster'
                                 />
                             </div>
                             <div className='category-input'>
                                 <Form.Select onChange={this.handleChange} 
-                                    options={categoryOptions}
                                     placeholder="Category"
+                                    options={categoryOptions}
                                     name='category' 
                                 />
                             </div>
-                            <div className='tag-input' style={{width: "500px"}}>
+                            <div className='tag-input' style={{width: "550px"}}>
                                     <Grid>
                                         <Grid.Row columns={2}>
                                             <Grid.Column>
@@ -153,8 +157,10 @@ class Recorder extends React.Component {
                                                         style={{width: "200px"}}
                                                         placeholder="Add tags"
                                                         name='add tags'
+                                                        icon
                                                     >
                                                         <input />
+                                                        <Icon name='tag' />
                                                     </Form.Input>
                                                 </OnEvent>
                                             </Grid.Column>
@@ -166,7 +172,7 @@ class Recorder extends React.Component {
                                                                             icon name='delete'
                                                                             key={index}
                                                                             labelPosition='right'
-                                                                            style={{margin:"20px 40px 0px 60x"}}
+                                                                            style={{margin:"10px 5px 0px 10x"}}
                                                                             >{tag}
                                                                                 <Icon name='delete' />
                                                                         </Button>

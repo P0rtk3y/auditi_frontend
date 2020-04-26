@@ -1,7 +1,7 @@
 
 import React from 'react'
 import { connect } from 'react-redux'
-import { Icon, Form, Button, Grid, Select} from 'semantic-ui-react'
+import { Icon, Form, Button, Grid } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { ReactMic } from 'react-mic'
 import Pizzicato from 'pizzicato'
@@ -84,7 +84,15 @@ class Recorder extends React.Component {
 
     handleSubmit = e => {
         e.preventDefault()
-        this.resetForm()
+        let recorderFormData = {
+            category: this.state.category,
+            tags: this.state.tags,
+            soundfile: this.state.soundfile,
+            soundster: this.state.soundster,
+            image: `https://loremflickr.com/g/200/200/${this.state.tags[0]}`,
+            mood: ''
+        }
+        this.props.updateAudioForm(recorderFormData)
     }
 
 

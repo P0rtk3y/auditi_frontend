@@ -161,12 +161,14 @@ div.field.soundster-input-box :first-child{
   width: 1000px;
 }
 
-i.hashtag.icon {
-  width: 200px;
-  margin: 10px 0px 10px 0px;
-}
-
-div.extra.content {
+/* div.extra.content {
   background-color: rgba(248, 117, 139, 0.411)
+} */
+
+button.ui.button {
+  width: 100px;
 }
 
+.tag-button-container {
+  margin: 0px 10px 10px 20px;
+}

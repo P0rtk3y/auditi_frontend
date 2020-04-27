@@ -156,3 +156,17 @@ div.field.soundster-input-box :first-child{
   margin-left: 20px;
 }
 
+.home-container {
+  margin-left: 200px;
+  width: 1000px;
+}
+
+i.hashtag.icon {
+  width: 200px;
+  margin: 10px 0px 10px 0px;
+}
+
+div.extra.content {
+  background-color: rgba(248, 117, 139, 0.411)
+}
+

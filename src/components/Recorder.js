@@ -177,6 +177,7 @@ class Recorder extends React.Component {
                                                     <Grid.Row columns={2}>
                                                             {this.state.tags.map((tag, index) => {
                                                                 return  <Button onClick={e => this.deleteTag(tag)}
+                                                                            color='teal'
                                                                             icon name='delete'
                                                                             key={index}
                                                                             labelPosition='right'

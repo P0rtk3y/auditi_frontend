@@ -1,9 +1,15 @@
-import React, {Component} from 'react'
+import React from 'react'
+import MyAudiocards from './MyAudiocards.js'
+import { Card } from 'semantic-ui-react'
 
 
 const Home = () => {
     return (
-        <div></div>
+        <div className="home-container">
+            <Card.Group itemsPerRow={4}>
+                    <MyAudiocards />
+            </Card.Group>
+        </div>
     )
 }
 

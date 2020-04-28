@@ -5,6 +5,13 @@ export const setMyAudiocards = audiocards => {
     }
 }
 
+export const clearAudiocards = audiocards => {
+    return {
+        type: "CLEAR_AUDIOCARDS",
+    }
+}
+
+
 export const getMyAudiocards = () => {
     return dispatch => {
         return fetch("http://localhost:3000/api/v1/audiocards", {

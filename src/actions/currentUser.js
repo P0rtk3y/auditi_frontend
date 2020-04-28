@@ -1,6 +1,7 @@
 import {resetSignupForm} from './signupForm'
 import {resetLoginForm} from './loginForm'
 import {getMyAudiocards} from './myAudioCards'
+import {clearAudiocards} from './myAudioCards'
 
 //synchronous action creators
 export const setCurrentUser = user => {
@@ -93,6 +94,7 @@ export const getCurrentUser = () => {
 export const logout = e => {
     return dispatch => {
         dispatch(clearCurrentUser())
+        dispatch((clearAudiocards()))
         return fetch('http://localhost:3000/api/v1/logout', {
             credentials: "include", 
             method: "DELETE"

@@ -1,3 +1,5 @@
+import {getMyAudiocards} from './myAudioCards'
+
 export const updateAudioForm = formData => {
     return {
         type: "UPDATE_AUDIO_FORM",
@@ -5,26 +7,43 @@ export const updateAudioForm = formData => {
     }
 }
 
-export const addRecording = recording => {
-    return {
-        type: "ADD_RECORDING",
-        recording
-    }
-}
+// export const addRecording = recording => {
+//     return {
+//         type: "ADD_RECORDING",
+//         recording
+//     }
+// }
+
 
 export const createRecording = formData => {
+    console.log(formData)
     return dispatch => {
-        const audiocardInfo = {
-            audiocard: formData
+        const audiocardData = { 
+            audiocard: {
+                category: formData.category,
+                tags: formData.tags,
+                soundfile: formData.soundfile,
+                soundster: formData.soundster,
+                image: formData.image,
+                user_id: formData.user_id
+            }  
         }
+        console.log(audiocardData)
         return fetch("http://localhost:3000/api/v1/audiocards", {
+            credentials: "include",
             method: "POST",
-            body: JSON.stringify(audiocardInfo)
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(audiocardData)
         })
+        
         .then(resp => resp.json())
-        .then(audiocard=> {
-            if(audiocard.error){
-                alert(audiocard.error)
+        .then(response => {
+            if(response.error){
+                alert(response.error)
+            } else {
+                return dispatch => getMyAudiocards()
             }
         })
         .catch(console.log)

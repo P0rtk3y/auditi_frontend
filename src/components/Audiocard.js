@@ -2,6 +2,7 @@ import React from 'react'
 import { Image, Card, Grid} from 'semantic-ui-react';
 import myAudioCards from '../reducers/myAudioCards';
 import Tags from './Tags'
+import Pizzicato from 'pizzicato'
 
 const Audiocard = ({audiocard}) => {
 
@@ -15,7 +16,12 @@ const Audiocard = ({audiocard}) => {
     //play on hover
     const playRecording = () => {
         if(audiocard.attributes.soundfile){
-        return audiocard.attributes.soundfile.play()
+            const getSound = new Pizzicato.Sound({
+                source: 'file',
+                options: {path: audiocard.attributes.soundfile}
+            }, () => {
+                getSound.play()
+            })
         }
     }
 
@@ -31,7 +37,7 @@ const Audiocard = ({audiocard}) => {
                 <Card color="olive">
                     <Image src={audiocard.attributes.image} /> 
                     <Card.Content
-                        // onMouseOver={playRecording}
+                        onMouseOver={playRecording()}
                     >
                         <Card.Header>{audiocard.attributes.soundster}</Card.Header>
                         <Card.Meta>

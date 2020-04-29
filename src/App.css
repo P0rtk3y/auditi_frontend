@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap');
+
 .App {
   text-align: center;
 }
@@ -17,6 +19,40 @@ body {
 
 a {
   color: white;
+}
+
+.homepage-container {
+  height: 500px;
+  width: 600px;
+  border-style: dotted;
+  border-color: rgb(248, 190, 151);
+  border-radius: 30px;
+  margin-left: 140px;
+  background-color: rgb(241, 241, 220)
+}
+
+.homepage-image {
+  background-image: url('./images/Signin.svg');
+  background-color: white;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 70%;
+  border-width: 10px;
+  height: 220px;
+  width: 300px;
+  margin: 60px 0px 0px 150px;
+  border-style: solid;
+  border-radius: 100%;
+  border-color: rgb(175, 105, 105)
+}
+
+
+p {
+  margin: 20px 0px 0px 40px;
+  font-size: 5em;
+  font-family: "Amatic SC", cursive;
+  height: 200px;
+  color: rgb(33, 103, 105)
 }
 
 
@@ -61,10 +97,12 @@ div.ui.ui.secondary.item.menu {
 .contentBody {
   margin-top: 200px;
   margin-right: 140px;
+  overflow-y: scroll;
+  height: 500px
 }
 
 .cassette {
-  margin: 0px 140px 0px 334px;
+  margin: 0px 140px 0px 362px;
   height: 380px;
   width: 600px;
   border-radius: 25px;
@@ -102,7 +140,7 @@ div.ui.ui.secondary.item.menu {
   background-position: center;
   border-radius: 50%;
   position: absolute;
-  left: 470px;
+  left: 498px;
   top: 137px;
 }
 
@@ -116,7 +154,7 @@ div.ui.ui.secondary.item.menu {
   background-position: center;
   border-radius: 50%;
   position: absolute;
-  left: 723px;
+  left: 752px;
   top: 137px;
 }
 

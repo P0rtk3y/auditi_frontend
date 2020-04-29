@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { ReactMic } from 'react-mic'
 import Pizzicato from 'pizzicato'
 import OnEvent from 'react-onevent'
-import { addRecording, updateAudioForm} from '../actions/audioForm.js'
+import { updateAudioForm, createRecording} from '../actions/audioForm.js'
 
 
 class Recorder extends React.Component {
@@ -17,7 +17,8 @@ class Recorder extends React.Component {
         soundfile: '',
         tags: [],
         category: '',
-        soundster: ''
+        soundster: '',
+        blob: ''
         }
       }
     
@@ -38,6 +39,9 @@ class Recorder extends React.Component {
     playRecording = () => {
         if (this.state.soundfile) {
             this.state.soundfile.play()
+            // let newAudio = new Audio(this.state.soundfile)
+            // let newAudio = new Audio(this.state.blob)
+            // newAudio.play()
         } else {
             console.log("no sound")
         }
@@ -45,15 +49,15 @@ class Recorder extends React.Component {
     }
 
     onStop = (micFeedback) => {
+        console.log(micFeedback)
         const getSound = new Pizzicato.Sound({
             source: 'file',
-            options: {path: [micFeedback.blobURL]}
+            options: {path: micFeedback.blobURL}
         }, () => {
             this.setState({soundfile: getSound})
-            // this.props.addRecording({soundfile: getSound, blob: micFeedback.blobURL})
-            // getSound.play()
+            this.setState({blob: micFeedback.blobURL})
+            // this.props.addRecording({soundfile: getSound, blob: micFeedback.blobURL}
         })
-    //   console.log('recordedBlob is: ', recording);
     }
 
     // Tag input methods
@@ -88,34 +92,53 @@ class Recorder extends React.Component {
         const recorderFormData = {
             category: this.state.category,
             tags: this.state.tags,
-            soundfile: this.state.soundfile,
+            soundfile: this.state.blob,
             soundster: this.state.soundster,
-            image: `https://loremflickr.com/g/200/200/${this.state.tags[0]}`
+            image: `https://loremflickr.com/g/200/200/${this.state.tags[0]}`,
+            user_id: this.props.userId
+            // storedBlob: this.state.blob
         }
         this.props.updateAudioForm(recorderFormData)
+
+        // blob conversion
+        // let newAudio = new Audio(this.state.blob)
+
+        // for backend
+        // let backendFormData = new FormData()
+        //     backendFormData.append('category', this.state.category)
+        //     backendFormData.append('tags', this.state.tags)
+        //     backendFormData.append('soundfile', this.state.blob)
+        //     backendFormData.append('soundster', this.state.soundster)
+        //     backendFormData.append('image', `https://loremflickr.com/g/200/200/${this.state.tags[0]}`)
+        //     backendFormData.append('user_id', this.props.userId)
+
+        this.props.createRecording(recorderFormData)
     }
 
 
-   
     
     render(){
         //animate gears 
+
         const rotateGears = e => {
             document.querySelector('.gear1').style.animation = "rotation 8s infinite linear"
             document.querySelector('.gear2').style.animation = "rotation 8s infinite linear"
             this.startRecording()
+            console.log("RECORDING")
         }
 
         const stopGears = e => {
             document.querySelector('.gear1').style.animation = ""
             document.querySelector('.gear2').style.animation = ""
             this.stopRecording()
+            console.log("STOPPING")
         }
 
         const playGears = e => {
             document.querySelector('.gear1').style.animation = "rotation 8s infinite linear"
             document.querySelector('.gear2').style.animation = "rotation 8s infinite linear"
             this.playRecording()
+            console.log("PLAYING")
         }
 
 
@@ -200,6 +223,7 @@ class Recorder extends React.Component {
                             record={this.state.record}
                             className="sound-wave"
                             onStop={this.onStop}
+                            onData={this.onData}
                             strokeColor="#D4E6D7"
                             backgroundColor="#8FC6B4"
                             mimeType="audio/mp3" 
@@ -221,6 +245,7 @@ class Recorder extends React.Component {
                         </Form.Button>
                         <Form.Button type='Submit' className= 'saveButton' color="orange">
                             <Icon name='paper plane outline' />
+                            <br></br>
                             Save
                         </Form.Button>
                     </Form.Group>
@@ -245,4 +270,4 @@ const mapStateToProps = state => {
 //     }
 // }
 
-export default connect(mapStateToProps, {addRecording, updateAudioForm})(Recorder)
+export default connect(mapStateToProps, {updateAudioForm, createRecording})(Recorder)

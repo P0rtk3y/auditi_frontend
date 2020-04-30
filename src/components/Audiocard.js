@@ -16,13 +16,9 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard}) => {
 
     //play on hover
     const playRecording = () => {
+        console.log("PLAYING RECORDING")
         if(audiocard.attributes.soundfile){
-            const getSound = new Pizzicato.Sound({
-                source: 'file',
-                options: {path: audiocard.attributes.soundfile}
-            }, () => {
-                // getSound.play()
-            })
+        //    audiocard.attributes.soundfile.play()
         }
     }
 

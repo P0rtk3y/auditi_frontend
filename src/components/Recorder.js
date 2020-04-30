@@ -7,6 +7,7 @@ import { ReactMic } from 'react-mic'
 import Pizzicato from 'pizzicato'
 import OnEvent from 'react-onevent'
 import { updateAudioForm, createRecording} from '../actions/audioForm.js'
+import { addAudiocard } from '../actions/myAudioCards.js'
 
 
 class Recorder extends React.Component {
@@ -48,7 +49,8 @@ class Recorder extends React.Component {
             source: 'file',
             options: {path: micFeedback.blobURL}
         }, () => {
-            this.setState({soundfile: getSound}, {blob: micFeedback.blobURL}, {record:false})
+            this.setState({soundfile: getSound})
+            this.setState({blob: micFeedback.blobURL})
             // this.props.addRecording({soundfile: getSound, blob: micFeedback.blobURL}
         })
     }
@@ -126,6 +128,7 @@ class Recorder extends React.Component {
         const stopGears = e => {
             document.querySelector('.gear1').style.animation = ""
             document.querySelector('.gear2').style.animation = ""
+            this.setState({record: false})
             console.log("STOPPING")
         }
 
@@ -218,7 +221,6 @@ class Recorder extends React.Component {
                             record={this.state.record}
                             className="sound-wave"
                             onStop={this.onStop}
-                            onData={this.onData}
                             strokeColor="#D4E6D7"
                             backgroundColor="#8FC6B4"
                             mimeType="audio/mp3" 
@@ -230,7 +232,7 @@ class Recorder extends React.Component {
                             <Icon name='microphone' />
                             Record 
                         </Form.Button>
-                        <Form.Button type="button" attached='bottom' className='stopButton' onClick={stopGears}>
+                        <Form.Button type="onStop" attached='bottom' className='stopButton' onClick={stopGears}>
                             <Icon name='stop' />
                             Stop   
                         </Form.Button>
@@ -265,4 +267,4 @@ const mapStateToProps = state => {
 //     }
 // }
 
-export default connect(mapStateToProps, {updateAudioForm, createRecording})(Recorder)
+export default connect(mapStateToProps, {updateAudioForm, createRecording, addAudiocard})(Recorder)

@@ -10,6 +10,13 @@ export const setMyAudiocards = audiocards => {
     }
 }
 
+export const addAudiocard = audiocard => {
+    return {
+        type: "ADD_AUDIOCARD",
+        audiocard
+    }
+}
+
 export const clearAudiocards = audiocards => {
     return {
         type: "CLEAR_AUDIOCARDS"
@@ -38,7 +45,7 @@ export const getMyAudiocards = () => {
                 if (response.error){
                     alert(response.error)
                 } else {
-                    dispatch(setMyAudiocards(response.data))
+                    return dispatch(setMyAudiocards(response.data))
                 }
             })
             .catch(console.log)
@@ -59,7 +66,7 @@ export const deleteAudiocard = (audiocardId) => {
             if (response.error){
                 alert(response.error)
             } else {
-                return dispatch => getMyAudiocards()
+                return dispatch(getMyAudiocards())
             }
         })
         .catch(console.log)

@@ -1,4 +1,5 @@
-import {getMyAudiocards} from './myAudioCards'
+import {addAudiocard, getMyAudiocards} from './myAudioCards'
+
 
 export const updateAudioForm = formData => {
     return {
@@ -6,7 +7,6 @@ export const updateAudioForm = formData => {
         formData
     }
 }
-
 
 
 export const createRecording = formData => {
@@ -22,7 +22,6 @@ export const createRecording = formData => {
                 user_id: formData.user_id
             }  
         }
-        console.log(audiocardData)
         return fetch("http://localhost:3000/api/v1/audiocards", {
             credentials: "include",
             method: "POST",
@@ -37,7 +36,7 @@ export const createRecording = formData => {
             if(response.error){
                 alert(response.error)
             } else {
-                return dispatch => getMyAudiocards()
+                return dispatch(getMyAudiocards())
             }
         })
         .catch(console.log)

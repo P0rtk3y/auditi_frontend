@@ -5,7 +5,7 @@ import { updateLoginForm } from '../actions/loginForm.js'
 import { login } from '../actions/currentUser.js'
 
 const Login = ({loginForm, updateLoginForm, login}) => {
-
+    
     const handleChange = e => {
         const {name, value} = e.target 
         let loginFormData = {

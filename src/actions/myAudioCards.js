@@ -1,3 +1,8 @@
+
+const baseURL = "http://localhost:3000/api/v1"
+
+
+
 export const setMyAudiocards = audiocards => {
     return {
         type: "SET_MY_AUDIOCARDS",
@@ -7,14 +12,21 @@ export const setMyAudiocards = audiocards => {
 
 export const clearAudiocards = audiocards => {
     return {
-        type: "CLEAR_AUDIOCARDS",
+        type: "CLEAR_AUDIOCARDS"
+    }
+}
+
+export const confirmDelete = audiocardId => {
+    return {
+        type: "DELETE_AUDIOCARD",
+        audiocardId
     }
 }
 
 
 export const getMyAudiocards = () => {
     return dispatch => {
-        return fetch("http://localhost:3000/api/v1/audiocards", {
+        return fetch(`${baseURL}/audiocards`, {
             credentials: "include",
             method: "GET",
             headers: {
@@ -30,5 +42,26 @@ export const getMyAudiocards = () => {
                 }
             })
             .catch(console.log)
+    }
+}
+
+export const deleteAudiocard = (audiocardId) => {
+    return dispatch => {
+        return fetch(`${baseURL}/audiocards/${audiocardId}`, {
+            credentials: "include",
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+    })
+        .then(resp => resp.json())
+        .then(response => {
+            if (response.error){
+                alert(response.error)
+            } else {
+                return dispatch => getMyAudiocards()
+            }
+        })
+        .catch(console.log)
     }
 }

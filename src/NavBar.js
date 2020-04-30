@@ -17,7 +17,7 @@ const NavBar = ({currentUser, loggedIn}) => {
                   <Link to='/'><Icon size='huge' name='home' color='orange' /></Link>
                 </Menu.Item>
                 <Menu.Item>
-                    <Search category />
+                    <Link to='/searchbar'><Search category /></Link>
                 </Menu.Item>
                 <Menu.Item>
                   <Link to='/recorder' ><Icon size='huge' name='microphone' color='olive' /></Link>

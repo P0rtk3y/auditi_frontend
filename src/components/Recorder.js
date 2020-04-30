@@ -30,11 +30,6 @@ class Recorder extends React.Component {
 
     }
    
-    stopRecording = () => {
-      this.setState({
-        record: false
-      });
-    }
 
     playRecording = () => {
         if (this.state.soundfile) {
@@ -49,13 +44,11 @@ class Recorder extends React.Component {
     }
 
     onStop = (micFeedback) => {
-        console.log(micFeedback)
         const getSound = new Pizzicato.Sound({
             source: 'file',
             options: {path: micFeedback.blobURL}
         }, () => {
-            this.setState({soundfile: getSound})
-            this.setState({blob: micFeedback.blobURL})
+            this.setState({soundfile: getSound}, {blob: micFeedback.blobURL}, {record:false})
             // this.props.addRecording({soundfile: getSound, blob: micFeedback.blobURL}
         })
     }
@@ -81,6 +74,8 @@ class Recorder extends React.Component {
         })  
     }
 
+    //event handlers
+
     handleChange = (e, {name,value}) => {
         this.setState({
             [name]: value
@@ -98,7 +93,7 @@ class Recorder extends React.Component {
             user_id: this.props.userId
             // storedBlob: this.state.blob
         }
-        this.props.updateAudioForm(recorderFormData)
+        // this.props.updateAudioForm(recorderFormData)
 
         // blob conversion
         // let newAudio = new Audio(this.state.blob)
@@ -113,6 +108,7 @@ class Recorder extends React.Component {
         //     backendFormData.append('user_id', this.props.userId)
 
         this.props.createRecording(recorderFormData)
+
     }
 
 
@@ -130,7 +126,6 @@ class Recorder extends React.Component {
         const stopGears = e => {
             document.querySelector('.gear1').style.animation = ""
             document.querySelector('.gear2').style.animation = ""
-            this.stopRecording()
             console.log("STOPPING")
         }
 
@@ -187,7 +182,7 @@ class Recorder extends React.Component {
                                                     <Form.Input
                                                         style={{width: "200px"}}
                                                         placeholder="Add tags"
-                                                        name='add tags'
+                                                        name='addTags'
                                                         icon
                                                     >
                                                         <input />
@@ -231,15 +226,15 @@ class Recorder extends React.Component {
                             />
                     </div>
                     <Form.Group className="recorderButtons" style={{margin: "10px 0px 10px 420px"}}>
-                        <Form.Button className='recordButton' color="olive" onClick={rotateGears}>
+                        <Form.Button type="button" attached='bottom' className='recordButton' color="olive" onClick={rotateGears}>
                             <Icon name='microphone' />
                             Record 
                         </Form.Button>
-                        <Form.Button className='stopButton' onClick={stopGears}>
+                        <Form.Button type="button" attached='bottom' className='stopButton' onClick={stopGears}>
                             <Icon name='stop' />
                             Stop   
                         </Form.Button>
-                        <Form.Button className='playButton' onClick={playGears}>
+                        <Form.Button type="button" attached='bottom'className='playButton' onClick={playGears}>
                             <Icon name='play' />
                             Play
                         </Form.Button>

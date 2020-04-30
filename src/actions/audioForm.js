@@ -7,12 +7,6 @@ export const updateAudioForm = formData => {
     }
 }
 
-// export const addRecording = recording => {
-//     return {
-//         type: "ADD_RECORDING",
-//         recording
-//     }
-// }
 
 
 export const createRecording = formData => {

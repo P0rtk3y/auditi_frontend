@@ -97,8 +97,7 @@ div.ui.ui.secondary.item.menu {
 .contentBody {
   margin-top: 200px;
   margin-right: 140px;
-  overflow-y: scroll;
-  height: 500px
+  height: 600px
 }
 
 .cassette {
@@ -204,9 +203,14 @@ div.field.soundster-input-box :first-child{
 } */
 
 button.ui.button {
-  width: 100px;
+  width: 110px;
 }
 
 .tag-button-container {
   margin: 0px 10px 10px 20px;
+  width: 220px;
+}
+
+i.red.times.circle.icon.deleteIcon {
+  margin-left: 220px
 }

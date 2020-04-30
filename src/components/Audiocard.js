@@ -3,7 +3,7 @@ import { Image, Card, Grid, Icon } from 'semantic-ui-react';
 import myAudioCards from '../reducers/myAudioCards';
 import { connect } from 'react-redux'
 import Tags from './Tags'
-import Pizzicato from 'pizzicato'
+// import Pizzicato from 'pizzicato'
 import {confirmDelete, deleteAudiocard} from '../actions/myAudioCards'
 
 const Audiocard = ({audiocard, confirmDelete, deleteAudiocard}) => {
@@ -58,7 +58,7 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard}) => {
                                 </Grid>
                             </Card.Content>
                         </div>
-                        <Icon name="times circle" color='red' className='deleteIcon' onClick={handleDeleteClick}/>
+                        <Icon name="times circle" color='yellow' className='deleteIcon' onClick={handleDeleteClick}/>
                     </Card>
         )
 }

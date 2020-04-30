@@ -2,7 +2,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Icon, Form, Button, Grid } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import { ReactMic } from 'react-mic'
 import Pizzicato from 'pizzicato'
 import OnEvent from 'react-onevent'
@@ -19,7 +19,8 @@ class Recorder extends React.Component {
         tags: [],
         category: '',
         soundster: '',
-        blob: ''
+        blob: '',
+        displayErrors: false
         }
       }
     
@@ -108,8 +109,17 @@ class Recorder extends React.Component {
         //     backendFormData.append('soundster', this.state.soundster)
         //     backendFormData.append('image', `https://loremflickr.com/g/200/200/${this.state.tags[0]}`)
         //     backendFormData.append('user_id', this.props.userId)
+        
+        
+        if(Object.values(recorderFormData).every(k => k !== "" && k.length !== 0)){
+            this.props.createRecording(recorderFormData)
+            this.setState({displayErrors: false})
+            alert("Successfully Saved!")
+        } else {
+            return this.setState({displayErrors: true})
+        }
 
-        this.props.createRecording(recorderFormData)
+        
 
     }
 
@@ -152,9 +162,11 @@ class Recorder extends React.Component {
             { key:8, text: 'Other', value: 'other', icon: 'find'},
         ]
 
+        const getclassName = this.state.displayErrors ? 'displayErrors' : ''
+
         return (
             <div className='mainRecContainer'>
-                <Form className='soundsterForm' onSubmit={this.handleSubmit}> 
+                <Form className={getclassName} onSubmit={this.handleSubmit} noValidate> 
                     <div className='cassette'>
                         <div className='gear1'>
                             <span className='helper'></span>

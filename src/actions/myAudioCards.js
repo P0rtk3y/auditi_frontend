@@ -23,12 +23,20 @@ export const clearAudiocards = audiocards => {
     }
 }
 
+export const filterAudiocards = audiocards => {
+    return {
+        type: "FILTER_AUDIOCARDS",
+        audiocards
+    }
+}
+
 export const confirmDelete = audiocardId => {
     return {
         type: "DELETE_AUDIOCARD",
         audiocardId
     }
 }
+
 
 
 export const getMyAudiocards = () => {

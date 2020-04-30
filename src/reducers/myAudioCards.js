@@ -6,6 +6,8 @@ export default (state = initialState, action) => {
             return action.audiocards
         case "ADD_AUDIOCARD":
             return state.concat(action.audiocard)
+        case "FILTER_AUDIOCARDS":
+            return state
         case "DELETE_AUDIOCARD":
             return state.filter(audiocard => audiocard.id !== action.audiocardId)
         default:

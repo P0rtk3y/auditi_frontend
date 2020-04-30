@@ -211,6 +211,10 @@ button.ui.button {
   width: 220px;
 }
 
-i.red.times.circle.icon.deleteIcon {
+i.yellow.times.circle.icon.deleteIcon {
   margin-left: 220px
+}
+
+form.ui.form.displayErrors * {
+  border-color: red;
 }

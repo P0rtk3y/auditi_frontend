@@ -5,6 +5,7 @@ import { getCurrentUser } from './actions/currentUser'
 import NavBar from './NavBar.js'
 import Recorder from './components/Recorder'
 import Home from './components/Home'
+import Searchbar from './components/Searchbar'
 import { Redirect, Route, withRouter } from 'react-router-dom'
 
 
@@ -25,8 +26,8 @@ class App extends React.Component{
         <div className="contentBody">
           <Route exact path="/" component={ Home } />
           <Route exact path="/recorder" component={ Recorder } />
+          <Route exact path="/searchbar" component={ Searchbar } />
         </div>
-        {/* <Route exact path='/logout' component={Logout} />  */}
       </div>
     )
   }

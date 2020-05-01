@@ -1,21 +1,22 @@
 import React from 'react'
-import { Menu, Icon, Search, Button, Modal } from 'semantic-ui-react'
+import { Menu, Icon, Search, Button, Modal, Input } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import OnEvent from 'react-onevent'
 import Login from './components/Login'
 import Logout from './components/Logout'
 import Signup from './components/Signup'
+import OnEvent from 'react-onevent'
+import { changeSearchText } from './actions/searchbar'
 import Searchbar from './components/Searchbar'
 import './images/userIcon.png';
 
 
-const NavBar = ({currentUser, loggedIn}) => {
+const NavBar = ({loggedIn, changeSearchText, searchText}) => {
 
-    const addSearchWord = e => {
-      console.log(e.target.value)
-      return <Searchbar />
+    const handleChange = e => {
+        changeSearchText(e.target.value)
     }
+  
 
     return (
         <div className="navBar">
@@ -25,9 +26,14 @@ const NavBar = ({currentUser, loggedIn}) => {
                 </Menu.Item>
                 <Menu.Item>
                     <Link to='/searchbar'>
-                      <Search name='search' type='text' placeholder='Enter a tag'>
-                          <OnEvent space={addSearchWord} value='' />
-                      </Search>
+                        <Search 
+                          name='search' 
+                          type='text' 
+                          placeholder='Enter a tag'
+                          onSearchChange={handleChange}
+                          value={searchText} 
+                          showNoResults={false}
+                          />           
                     </Link>
                 </Menu.Item>
                 <Menu.Item>
@@ -73,12 +79,14 @@ const NavBar = ({currentUser, loggedIn}) => {
 
 }
 
-const mapStateToProps = ({currentUser}) => {
+const mapStateToProps = ({currentUser, searchbar})=> {
+
   return {
     currentUser,
-    loggedIn: !!currentUser
+    loggedIn: !!currentUser,
+    searchText: searchbar
   }
 }
 
 
-export default connect(mapStateToProps)(NavBar);
+export default connect(mapStateToProps, {changeSearchText})(NavBar);

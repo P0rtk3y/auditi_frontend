@@ -1,38 +1,34 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { filterAudiocards } from '../actions/myAudioCards'
 import Audiocard from './Audiocard'
+import { Card } from 'semantic-ui-react'
 
-class Searchbar extends React.Component {
-    constructor(props) {
-      super()
-      this.state = {
-        audiocards: props.audiocards,
-        filteredCards: []
-        }
-    }
-
+const Searchbar = props => {
+       
+    const audiocards = props.audiocards.map(audio => 
+        <Audiocard audiocard={audio} key={audio.id} />
+    )
     
-        
-
-
-    render(){
-        const findInput = document.querySelector('div.ui.icon.input.firstElementChild.value')
-
-        console.log(findInput)
-        return(
-            <div>
-                <h1>Hello</h1>
-            </div>
-        )
-    }
+    return(
+        <div className="home-container">
+            <Card.Group itemsPerRow={4}>
+                {audiocards}
+            </Card.Group>
+        </div>   
+    )
+    
 }
 
 const mapStateToProps = state => {
     return {
-        audiocards: state.myAudioCards
+        audiocards: state.myAudioCards.filter(
+            audio =>
+                audio.attributes.tags.includes(state.searchbar) ||
+                (audio.attributes.category === state.searchbar) ||
+                (audio.attributes.soundster.split(' ').includes(state.searchbar))
+        )
     }
 }
 
 
-export default connect(mapStateToProps, {filterAudiocards})(Searchbar)
+export default connect(mapStateToProps)(Searchbar)

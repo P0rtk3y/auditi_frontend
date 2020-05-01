@@ -23,12 +23,6 @@ export const clearAudiocards = audiocards => {
     }
 }
 
-export const filterAudiocards = audiocards => {
-    return {
-        type: "FILTER_AUDIOCARDS",
-        audiocards
-    }
-}
 
 export const confirmDelete = audiocardId => {
     return {

@@ -33,6 +33,24 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard}) => {
         deleteAudiocard(audiocard.id)
     }
 
+    const addColor = (category) => {
+        switch(category){
+            case "quotes":
+                return "#AECBDF"
+            case "music":
+                return "#DFC2AE"
+            case "nature":
+                return "#AEDFC1"
+            case "Personal":
+                return "#DFB3AE"
+            case "joke":
+                return "#C99EDB"
+            case "health":
+                return "#DA9333"
+            default:
+                return "#AEDFD5"
+        }
+    }
     
 
         return (
@@ -45,7 +63,7 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard}) => {
                         <Card.Meta>
                             <span className='date'>Created on {newDate}</span>
                         </Card.Meta>
-                        <Card.Description>
+                        <Card.Description style={{color:addColor(audiocard.attributes.category)}}>
                             ({audiocard.attributes.category})
                         </Card.Description>
                     </Card.Content>

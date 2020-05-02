@@ -5,6 +5,7 @@ const Tags = (props) => {
     
     return(
         <Button 
+            basic
             icon name='hashtag'
             color='teal'
             style={{margin:"10px 5px 0px 20x"}}

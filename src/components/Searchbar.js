@@ -23,9 +23,9 @@ const mapStateToProps = state => {
     return {
         audiocards: state.myAudioCards.filter(
             audio =>
-                audio.attributes.tags.includes(state.searchbar) ||
-                (audio.attributes.category === state.searchbar) ||
-                (audio.attributes.soundster.split(' ').includes(state.searchbar))
+                audio.attributes.tags.toUpperCase().includes(state.searchbar.toUpperCase()) ||
+                (audio.attributes.category.toUpperCase() === state.searchbar.toUpperCase()) ||
+                (audio.attributes.soundster.toUpperCase().split(' ').includes(state.searchbar.toUpperCase()))
         )
     }
 }

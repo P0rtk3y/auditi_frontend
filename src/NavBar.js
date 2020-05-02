@@ -5,9 +5,7 @@ import { connect } from 'react-redux'
 import Login from './components/Login'
 import Logout from './components/Logout'
 import Signup from './components/Signup'
-import OnEvent from 'react-onevent'
 import { changeSearchText } from './actions/searchbar'
-import Searchbar from './components/Searchbar'
 import './images/userIcon.png';
 
 
@@ -29,7 +27,7 @@ const NavBar = ({loggedIn, changeSearchText, searchText}) => {
                         <Search 
                           name='search' 
                           type='text' 
-                          placeholder='Enter a tag'
+                          placeholder='Enter a tag, category, or source'
                           onSearchChange={handleChange}
                           value={searchText} 
                           showNoResults={false}

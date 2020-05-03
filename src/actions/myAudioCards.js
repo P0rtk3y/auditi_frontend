@@ -17,9 +17,17 @@ export const addAudiocard = audiocard => {
     }
 }
 
+
 export const clearAudiocards = audiocards => {
     return {
         type: "CLEAR_AUDIOCARDS"
+    }
+}
+
+export const confirmEdit = audiocard => {
+    return {
+        type: "EDIT_AUDIOCARD",
+        audiocard
     }
 }
 
@@ -51,6 +59,33 @@ export const getMyAudiocards = () => {
                 }
             })
             .catch(console.log)
+    }
+}
+
+export const editAudiocard = audiocard => {
+    console.log(audiocard)
+    return dispatch => {
+        const editedData = {
+            ...audiocard,
+            soundster: audiocard.attributes.soundster
+        }
+        return fetch(`${baseURL}/audiocards/${audiocard.id}`, {
+            credentials: "include",
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(editedData)
+        })
+        .then(resp => resp.json())
+        .then(response => {
+            if (response.error){
+                alert(response.error)
+            }else {
+                return dispatch(getMyAudiocards())
+            }
+        })
+        .catch(console.log)
     }
 }
 

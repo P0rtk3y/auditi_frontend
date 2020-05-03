@@ -1,12 +1,12 @@
 import React from 'react'
-import { Image, Card, Grid, Icon } from 'semantic-ui-react';
-import myAudioCards from '../reducers/myAudioCards';
+import { Image, Card, Grid, Icon, Label, Button } from 'semantic-ui-react';
 import { connect } from 'react-redux'
 import Tags from './Tags'
+import OnEvent from 'react-onevent'
 // import Pizzicato from 'pizzicato'
-import {confirmDelete, deleteAudiocard} from '../actions/myAudioCards'
+import {confirmDelete, deleteAudiocard, editAudiocard, confirmEdit} from '../actions/myAudioCards'
 
-const Audiocard = ({audiocard, confirmDelete, deleteAudiocard}) => {
+const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, confirmEdit}) => {
 
     let newDate = ''
     if (audiocard.attributes.created_at){
@@ -18,7 +18,13 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard}) => {
     const playRecording = () => {
         console.log("PLAYING RECORDING")
         if(audiocard.attributes.soundfile){
-        //    audiocard.attributes.soundfile.play()
+            // let blob = new Blob(audiocard.attributes.soundfile)
+            // let url = window.URL.createObjectURL(blob)
+            // console.log(url)
+            // window.audio = new Audio()
+            // window.audio.src = url 
+            // window.audio.play()
+            // return audiocard.attributes.soundfile.play()
         }
     }
 
@@ -51,15 +57,38 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard}) => {
                 return "#AEDFD5"
         }
     }
-    
+
+    const modifyCardContent = (id) => {
+        let oldHeader = audiocard.attributes.soundster
+        let modifyCard = document.querySelector(`div.header.header-${id}`)
+            modifyCard.setAttribute('contenteditable', 'true')
+        let newHeader = modifyCard.innerHTML
+
+        if(oldHeader !== newHeader){
+            audiocard.attributes.soundster = newHeader
+            confirmEdit(audiocard)
+            editAudiocard(audiocard)
+        }
+    }
+
+    const addFavorite = e => {
+        let getIcon = document.querySelector(`a.ui.left.corner.label.icon-${audiocard.id}`).firstElementChild
+        !getIcon.className.includes('pink') ? getIcon.className = 'pink thumbtack icon' : getIcon.className = 'thumbtack icon'
+    }
+
 
         return (
                 <Card color="olive">
-                    <Image src={audiocard.attributes.image} size='large'/> 
-                    <Card.Content
-                        onMouseOver={playRecording()}
-                    >
-                        <Card.Header>{audiocard.attributes.soundster}</Card.Header>
+                    <Image 
+                        fluid
+                        src={audiocard.attributes.image} 
+                        onMouseEnter={() => playRecording()}
+                        label={{ as: 'a', corner: 'left', icon: 'thumbtack', color: 'white', className: `icon-${audiocard.id}` }}
+                        onClick={e => {addFavorite()}}
+                        
+                    />
+                    <Card.Content>
+                        <Card.Header className={`header-${audiocard.id}`} onClick={e => modifyCardContent(audiocard.id)}>{audiocard.attributes.soundster}</Card.Header>
                         <Card.Meta>
                             <span className='date'>Created on {newDate}</span>
                         </Card.Meta>
@@ -76,10 +105,10 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard}) => {
                             </Grid>
                         </Card.Content>
                     </div>
-                    <Icon name="times circle" color='yellow' className='deleteIcon' onClick={handleDeleteClick}/>
+                    <Label corner='right' color='yellow' onClick={handleDeleteClick}><Icon name="times circle" corner= 'right' color='white' className='deleteIcon' /></Label>
                 </Card>
         )
 }
 
 
-export default connect(null, {confirmDelete, deleteAudiocard})(Audiocard)
+export default connect(null, {confirmDelete, deleteAudiocard, editAudiocard, confirmEdit})(Audiocard)

@@ -56,6 +56,15 @@ class Recorder extends React.Component {
         })
     }
 
+    // onStop = (micFeedback) => {
+    //     console.log(micFeedback.blobURL)
+    //     let blob = new Blob(micFeedback.blobURL, {type: 'audio/wav'})
+    //     let url = window.URL.createObjectURL(blob)
+    //     window.audio = new Audio()
+    //     window.audio.src = url 
+    //     window.audio.play()
+    // }
+
     // Tag input methods
 
     addTag = e => {
@@ -90,7 +99,7 @@ class Recorder extends React.Component {
         const recorderFormData = {
             category: this.state.category,
             tags: this.state.tags,
-            soundfile: this.state.blob,
+            soundfile: this.state.soundfile,
             soundster: this.state.soundster,
             image: `https://loremflickr.com/g/200/200/${this.state.tags[0]}`,
             user_id: this.props.userId

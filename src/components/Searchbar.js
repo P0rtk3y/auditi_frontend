@@ -25,7 +25,7 @@ const mapStateToProps = state => {
             audio =>
                 audio.attributes.tags.toUpperCase().includes(state.searchbar.toUpperCase()) ||
                 (audio.attributes.category.toUpperCase() === state.searchbar.toUpperCase()) ||
-                (audio.attributes.soundster.toUpperCase().split(' ').includes(state.searchbar.toUpperCase()))
+                (audio.attributes.soundster.toUpperCase().includes(state.searchbar.toUpperCase()))
         )
     }
 }

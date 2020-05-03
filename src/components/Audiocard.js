@@ -1,12 +1,14 @@
-import React from 'react'
-import { Image, Card, Grid, Icon, Label, Button } from 'semantic-ui-react';
+import { Image, Card, Grid, Icon, Label, Button, Modal, Header } from 'semantic-ui-react';
 import { connect } from 'react-redux'
+import React, {useState} from 'react'
 import Tags from './Tags'
-import OnEvent from 'react-onevent'
 // import Pizzicato from 'pizzicato'
 import {confirmDelete, deleteAudiocard, editAudiocard, confirmEdit, favoriteAudiocard, confirmFavorite} from '../actions/myAudioCards'
 
 const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, confirmEdit, favoriteAudiocard, confirmFavorite}) => {
+    
+    const [modalState, setModal] = useState(false)
+
 
     let newDate = ''
     if (audiocard.attributes.created_at){
@@ -37,6 +39,7 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
     const handleDeleteClick = e => {
         confirmDelete(audiocard.id)
         deleteAudiocard(audiocard.id)
+        setModal(false)
     }
 
     const addColor = (category) => {
@@ -85,9 +88,10 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
             confirmFavorite(audiocard)
         }
     }
-
+    console.log(modalState)
 
         return (
+            
                 <Card color="olive">
                     <Image 
                         fluid
@@ -124,8 +128,28 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
                     </div>
                     <Label corner='right' 
                         color='yellow' 
-                        onClick={handleDeleteClick}>
-                        <Icon name="times circle" className='deleteIcon' />
+                    >
+                        <Modal 
+                            dimmer
+                            trigger={<Icon name="times circle" className='deleteIcon' onClick={e => setModal(true)}/>} 
+                            open={modalState}
+                        >
+                            <Header />
+                            <Modal.Content>
+                                <p>
+                                    <Icon name="trash alternate outline" color="olive" small /> 
+                                    Are you sure you want to delete?
+                                </p>
+                            </Modal.Content>
+                            <Modal.Actions>
+                                <Button color='green' inverted onClick={e => handleDeleteClick()}>
+                                    <Icon name='checkmark' /> Yes
+                                </Button>
+                                <Button color='red' inverted onClick={e => setModal(false)}>
+                                    <Icon name='checkmark'/> No
+                                </Button>
+                            </Modal.Actions>
+                        </Modal>
                     </Label>
                 </Card>
         )

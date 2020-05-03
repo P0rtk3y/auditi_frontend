@@ -4,9 +4,9 @@ import { connect } from 'react-redux'
 import Tags from './Tags'
 import OnEvent from 'react-onevent'
 // import Pizzicato from 'pizzicato'
-import {confirmDelete, deleteAudiocard, editAudiocard, confirmEdit} from '../actions/myAudioCards'
+import {confirmDelete, deleteAudiocard, editAudiocard, confirmEdit, favoriteAudiocard, confirmFavorite} from '../actions/myAudioCards'
 
-const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, confirmEdit}) => {
+const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, confirmEdit, favoriteAudiocard, confirmFavorite}) => {
 
     let newDate = ''
     if (audiocard.attributes.created_at){
@@ -71,9 +71,19 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
         }
     }
 
-    const addFavorite = e => {
+    const addFavorite = (audiocard) => {
+        console.log(audiocard.attributes.favorite)
         let getIcon = document.querySelector(`a.ui.left.corner.label.icon-${audiocard.id}`).firstElementChild
-        !getIcon.className.includes('pink') ? getIcon.className = 'pink thumbtack icon' : getIcon.className = 'thumbtack icon'
+        !getIcon.className.includes('pink') ? getIcon.className = 'pink bullhorn icon' : getIcon.className = 'bullhorn icon'
+        if(getIcon.className.includes('pink')){
+            audiocard.attributes.favorite = true
+            favoriteAudiocard(audiocard)
+            confirmFavorite(audiocard)
+        }else{
+            audiocard.attributes.favorite = false
+            favoriteAudiocard(audiocard)
+            confirmFavorite(audiocard)
+        }
     }
 
 
@@ -83,12 +93,19 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
                         fluid
                         src={audiocard.attributes.image} 
                         onMouseEnter={() => playRecording()}
-                        label={{ as: 'a', corner: 'left', icon: 'thumbtack', color: 'white', className: `icon-${audiocard.id}` }}
-                        onClick={e => {addFavorite()}}
-                        
+                        label={{ 
+                            as: 'a', 
+                            corner: 'left', 
+                            className: `icon-${audiocard.id}`,
+                            icon: audiocard.attributes.favorite ? "pink bullhorn" : "bullhorn"
+                        }}
+                        onClick={e => addFavorite(audiocard)}
                     />
                     <Card.Content>
-                        <Card.Header className={`header-${audiocard.id}`} onClick={e => modifyCardContent(audiocard.id)}>{audiocard.attributes.soundster}</Card.Header>
+                        <Card.Header 
+                            className={`header-${audiocard.id}`} 
+                            onClick={e => modifyCardContent(audiocard.id)}>{audiocard.attributes.soundster}
+                        </Card.Header>
                         <Card.Meta>
                             <span className='date'>Created on {newDate}</span>
                         </Card.Meta>
@@ -105,10 +122,14 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
                             </Grid>
                         </Card.Content>
                     </div>
-                    <Label corner='right' color='yellow' onClick={handleDeleteClick}><Icon name="times circle" corner= 'right' color='white' className='deleteIcon' /></Label>
+                    <Label corner='right' 
+                        color='yellow' 
+                        onClick={handleDeleteClick}>
+                        <Icon name="times circle" className='deleteIcon' />
+                    </Label>
                 </Card>
         )
 }
 
 
-export default connect(null, {confirmDelete, deleteAudiocard, editAudiocard, confirmEdit})(Audiocard)
+export default connect(null, {confirmDelete, deleteAudiocard, editAudiocard, confirmEdit, favoriteAudiocard, confirmFavorite})(Audiocard)

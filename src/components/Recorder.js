@@ -20,6 +20,7 @@ class Recorder extends React.Component {
         category: '',
         soundster: '',
         blob: '',
+        favorite: false,
         displayErrors: false
         }
       }
@@ -102,6 +103,7 @@ class Recorder extends React.Component {
             soundfile: this.state.soundfile,
             soundster: this.state.soundster,
             image: `https://loremflickr.com/g/200/200/${this.state.tags[0]}`,
+            favorite: false,
             user_id: this.props.userId
             // storedBlob: this.state.blob
         }

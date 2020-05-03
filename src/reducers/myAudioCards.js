@@ -8,6 +8,8 @@ export default (state = initialState, action) => {
             return state.concat(action.audiocard)
         case "EDIT_AUDIOCARD":
             return state.map(audiocard => audiocard.id === action.audiocard.id ? action.audiocard : audiocard)
+        case "FAVORITE_AUDIOCARD":
+            return state.map(audiocard => audiocard.id === action.audiocard.id ? action.audiocard : audiocard)
         case "DELETE_AUDIOCARD":
             return state.filter(audiocard => audiocard.id !== action.audiocardId)
         default:

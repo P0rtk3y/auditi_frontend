@@ -39,6 +39,13 @@ export const confirmDelete = audiocardId => {
     }
 }
 
+export const confirmFavorite = audiocard => {
+    return {
+        type: "FAVORITE_AUDIOCARD",
+        audiocard
+    }
+}
+
 
 
 export const getMyAudiocards = () => {
@@ -63,7 +70,6 @@ export const getMyAudiocards = () => {
 }
 
 export const editAudiocard = audiocard => {
-    console.log(audiocard)
     return dispatch => {
         const editedData = {
             ...audiocard,
@@ -76,6 +82,33 @@ export const editAudiocard = audiocard => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(editedData)
+        })
+        .then(resp => resp.json())
+        .then(response => {
+            if (response.error){
+                alert(response.error)
+            }else {
+                return dispatch(getMyAudiocards())
+            }
+        })
+        .catch(console.log)
+    }
+}
+
+export const favoriteAudiocard = audiocard => {
+    console.log(audiocard)
+    return dispatch => {
+        const addFavorite = {
+            ...audiocard,
+            favorite: audiocard.attributes.favorite
+        }
+        return fetch(`${baseURL}/audiocards/${audiocard.id}`, {
+            credentials: "include",
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(addFavorite)
         })
         .then(resp => resp.json())
         .then(response => {

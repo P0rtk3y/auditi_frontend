@@ -18,9 +18,12 @@ const NavBar = ({loggedIn, changeSearchText, searchText}) => {
 
     return (
         <div className="navBar">
-            <Menu secondary fixed="top" widths={4}>
+            <Menu secondary fixed="top" widths={5}>
                 <Menu.Item>
                   <Link to='/'><Icon size='huge' name='home' color='orange' /></Link>
+                </Menu.Item>
+                <Menu.Item>
+                  <Link to='/bullhorn'><Icon size='huge' name='bullhorn' color='pink' /></Link>
                 </Menu.Item>
                 <Menu.Item>
                     <Link to='/searchbar'>

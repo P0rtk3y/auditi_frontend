@@ -57,11 +57,29 @@ p {
 
 
 .ui.menu.fixed .item:first-child :last-child {
-  margin: 10px 20px;
+  margin: 10px 0px;
   width: 20%;
 }
 
-.ui.menu.fixed .item:third-child :third-child {
+i.pink.bullhorn.huge.icon {
+  margin-right: 320px
+}
+
+div.ui.icon.input {
+  margin-right: 200px
+}
+
+i.olive.microphone.huge.icon {
+  margin-right: 110px
+}
+
+
+.ui.menu.fixed .item:second-child :last-child {
+  margin: 10px 0px;
+  width: 20%;
+}
+
+.ui.menu.fixed .item:third-child :last-child {
   margin: 10px 0px;
   width: 10%;
 }
@@ -71,7 +89,7 @@ p {
   margin: 10px 400px;
   height: 5.5em;
   width: 150px;
-  right: 100px; 
+  right: 130px; 
 }
 
 .ui.search .prompt {
@@ -97,7 +115,12 @@ div.ui.ui.secondary.item.menu {
 .contentBody {
   margin-top: 200px;
   margin-right: 140px;
-  height: 600px
+  height: 600px;
+}
+
+div.ui.four.cards {
+  width: 1068px;
+
 }
 
 .cassette {

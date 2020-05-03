@@ -9,7 +9,6 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
     
     const [modalState, setModal] = useState(false)
 
-
     let newDate = ''
     if (audiocard.attributes.created_at){
         let convertDate = audiocard.attributes.created_at.split('T')[0].split('-')
@@ -88,8 +87,7 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
             confirmFavorite(audiocard)
         }
     }
-    console.log(modalState)
-
+   
         return (
             
                 <Card color="olive">

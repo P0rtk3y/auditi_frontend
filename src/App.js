@@ -3,9 +3,10 @@ import './App.css'
 import { connect } from 'react-redux'
 import { getCurrentUser } from './actions/currentUser'
 import NavBar from './NavBar.js'
-import Recorder from './components/Recorder'
 import Home from './components/Home'
+import Bullhorn from './components/Bullhorn'
 import Searchbar from './components/Searchbar'
+import Recorder from './components/Recorder'
 import { Redirect, Route, withRouter } from 'react-router-dom'
 
 
@@ -25,6 +26,7 @@ class App extends React.Component{
         </div>
         <div className="contentBody">
           <Route exact path="/" component={ Home } />
+          <Route exact path="/bullhorn" component={ Bullhorn } />
           <Route exact path="/recorder" component={ Recorder } />
           <Route exact path="/searchbar" component={ Searchbar } />
         </div>

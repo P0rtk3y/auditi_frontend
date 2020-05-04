@@ -2,11 +2,11 @@ import React from 'react'
 import { Menu, Icon, Search, Button, Modal, Input } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import Login from './components/Login'
-import Logout from './components/Logout'
-import Signup from './components/Signup'
-import { changeSearchText } from './actions/searchbar'
-import './images/userIcon.png';
+import Login from '../components/Login'
+import Logout from '../components/Logout'
+import Signup from '../components/Signup'
+import { changeSearchText } from '../actions/searchbar'
+import '../images/userIcon.png';
 
 
 const NavBar = ({loggedIn, changeSearchText, searchText}) => {

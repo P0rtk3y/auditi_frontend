@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import Audiocard from './Audiocard'
+import Audiocard from '../components/Audiocard'
 
 const MyAudiocards = ({userAudiocards}) => {
 

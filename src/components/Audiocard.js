@@ -2,7 +2,7 @@ import { Image, Card, Grid, Icon, Label, Button, Modal, Header } from 'semantic-
 import { connect } from 'react-redux'
 import React, {useState} from 'react'
 import Tags from './Tags'
-// import Pizzicato from 'pizzicato'
+import Pizzicato from 'pizzicato'
 import {confirmDelete, deleteAudiocard, editAudiocard, confirmEdit, favoriteAudiocard, confirmFavorite} from '../actions/myAudioCards'
 
 const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, confirmEdit, favoriteAudiocard, confirmFavorite}) => {
@@ -16,18 +16,18 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
     }
 
     //play on hover
-    const playRecording = () => {
+    const playSound = () => {
         console.log("PLAYING RECORDING")
         if(audiocard.attributes.soundfile){
-            // let blob = new Blob(audiocard.attributes.soundfile)
-            // let url = window.URL.createObjectURL(blob)
-            // console.log(url)
-            // window.audio = new Audio()
-            // window.audio.src = url 
-            // window.audio.play()
-            // return audiocard.attributes.soundfile.play()
+            const getSound = new Pizzicato.Sound({
+                source: 'file',
+                options: {path: audiocard.attributes.soundfile}
+            }, () => {
+                getSound.play()
+            })
         }
     }
+
 
     const tags = JSON.parse(audiocard.attributes.tags)
 
@@ -94,7 +94,7 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
                     <Image 
                         fluid
                         src={audiocard.attributes.image} 
-                        onMouseEnter={() => playRecording()}
+                        onMouseOver={() => playSound()}
                         label={{ 
                             as: 'a', 
                             corner: 'left', 

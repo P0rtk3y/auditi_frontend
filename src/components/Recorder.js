@@ -32,7 +32,6 @@ class Recorder extends React.Component {
       });
 
     }
-   
 
     playRecording = () => {
         if (this.state.soundfile) {
@@ -43,9 +42,9 @@ class Recorder extends React.Component {
         } else {
             console.log("no sound")
         }
-
     }
 
+    
     onStop = (micFeedback) => {
         const getSound = new Pizzicato.Sound({
             source: 'file',
@@ -58,12 +57,18 @@ class Recorder extends React.Component {
     }
 
     // onStop = (micFeedback) => {
-    //     console.log(micFeedback.blobURL)
-    //     let blob = new Blob(micFeedback.blobURL, {type: 'audio/wav'})
-    //     let url = window.URL.createObjectURL(blob)
-    //     window.audio = new Audio()
-    //     window.audio.src = url 
-    //     window.audio.play()
+    //     let url = URL.createObjectURL(micFeedback.blob)
+    //     URL.revokeObjectURL(url)
+    //     let reader = new FileReader()
+    //         reader.readAsDataURL(micFeedback.blob)
+    //     let base64FileData = reader.result.toString()
+    //     let mediaFile = {
+    //         fileUrl: url,
+    //         size: micFeedback.blob.size,
+    //         type: micFeedback.blob.type,
+    //         src: base64FileData
+    //     };
+    //     this.setState({soundfile: mediaFile})       
     // }
 
     // Tag input methods
@@ -100,7 +105,7 @@ class Recorder extends React.Component {
         const recorderFormData = {
             category: this.state.category,
             tags: this.state.tags,
-            soundfile: this.state.soundfile,
+            soundfile: this.state.blob,
             soundster: this.state.soundster,
             image: `https://loremflickr.com/g/200/200/${this.state.tags[0]}`,
             favorite: false,
@@ -250,7 +255,7 @@ class Recorder extends React.Component {
                             duration={30}
                             />
                     </div>
-                    <Form.Group className="recorderButtons" style={{margin: "10px 0px 10px 420px"}}>
+                    <Form.Group className="recorderButtons" style={{margin: "10px 0px 10px 465px"}}>
                         <Form.Button type="button" attached='bottom' className='recordButton' color="olive" onClick={rotateGears}>
                             <Icon name='microphone' />
                             Record 
@@ -262,6 +267,7 @@ class Recorder extends React.Component {
                         <Form.Button type="button" attached='bottom'className='playButton' onClick={playGears}>
                             <Icon name='play' />
                             Play
+                            <audio className='play audio' src=""></audio>
                         </Form.Button>
                         <Form.Button type='Submit' className= 'saveButton' color="orange">
                             <Icon name='paper plane outline' />

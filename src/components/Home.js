@@ -1,5 +1,5 @@
 import React from 'react'
-import MyAudiocards from './MyAudiocards.js'
+import MyAudiocards from '../containers/MyAudiocards.js'
 import { connect } from 'react-redux'
 import { Card } from 'semantic-ui-react'
 import Homepage from './Homepage'

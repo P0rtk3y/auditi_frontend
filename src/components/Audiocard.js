@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import React, {useState} from 'react'
 import Tags from './Tags'
 import Pizzicato from 'pizzicato'
+import Count from './Count.js'
 import {confirmDelete, deleteAudiocard, editAudiocard, confirmEdit, favoriteAudiocard, confirmFavorite} from '../actions/myAudioCards'
 
 const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, confirmEdit, favoriteAudiocard, confirmFavorite}) => {
@@ -74,7 +75,6 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
     }
 
     const addFavorite = (audiocard) => {
-        console.log(audiocard.attributes.favorite)
         let getIcon = document.querySelector(`a.ui.left.corner.label.icon-${audiocard.id}`).firstElementChild
         !getIcon.className.includes('pink') ? getIcon.className = 'pink bullhorn icon' : getIcon.className = 'bullhorn icon'
         if(getIcon.className.includes('pink')){
@@ -94,7 +94,6 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
                     <Image 
                         fluid
                         src={audiocard.attributes.image} 
-                        onMouseOver={() => playSound()}
                         label={{ 
                             as: 'a', 
                             corner: 'left', 
@@ -123,6 +122,7 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
                                 </Grid.Row>
                             </Grid>
                         </Card.Content>
+                        <Count playSound={playSound}/>
                     </div>
                     <Label corner='right' 
                         color='yellow' 
@@ -135,7 +135,7 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
                             <Header />
                             <Modal.Content>
                                 <p>
-                                    <Icon name="trash alternate outline" color="olive" small /> 
+                                    <Icon name="trash alternate outline" color="olive" /> 
                                     Are you sure you want to delete?
                                 </p>
                             </Modal.Content>

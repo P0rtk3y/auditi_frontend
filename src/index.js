@@ -12,8 +12,6 @@ import { BrowserRouter as Router} from 'react-router-dom'
 // import rootReducer from './rootReducer'
 
 
-// let store = createStore(composeEnhancers(applyMiddleware(...middleware)))
-
 ReactDOM.render(
   <Provider store={store}>
     <Router>

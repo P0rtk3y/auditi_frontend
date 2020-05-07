@@ -19,6 +19,7 @@ export const createRecording = formData => {
                 soundfile: formData.soundfile,
                 soundster: formData.soundster,
                 image: formData.image,
+                favorite: formData.favorite,
                 user_id: formData.user_id
             }  
         }
@@ -31,14 +32,14 @@ export const createRecording = formData => {
             body: JSON.stringify(audiocardData)
         })
         
-        .then(resp => resp.json())
-        .then(response => {
-            if(response.error){
-                alert(response.error)
-            } else {
-                return dispatch(getMyAudiocards())
-            }
-        })
-        .catch(console.log)
+            .then(resp => resp.json())
+            .then(response => {
+                if(response.error){
+                    alert(response.error)
+                } else {
+                    return dispatch(getMyAudiocards())
+                }
+            })
+            .catch(console.log)
     }
 }

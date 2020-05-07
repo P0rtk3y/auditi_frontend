@@ -96,7 +96,6 @@ export const editAudiocard = audiocard => {
 }
 
 export const favoriteAudiocard = audiocard => {
-    console.log(audiocard)
     return dispatch => {
         const addFavorite = {
             ...audiocard,

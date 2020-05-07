@@ -117,17 +117,9 @@ class Recorder extends React.Component {
         // blob conversion
         // let newAudio = new Audio(this.state.blob)
 
-        // for backend
-        // let backendFormData = new FormData()
-        //     backendFormData.append('category', this.state.category)
-        //     backendFormData.append('tags', this.state.tags)
-        //     backendFormData.append('soundfile', this.state.blob)
-        //     backendFormData.append('soundster', this.state.soundster)
-        //     backendFormData.append('image', `https://loremflickr.com/g/200/200/${this.state.tags[0]}`)
-        //     backendFormData.append('user_id', this.props.userId)
         
         
-        if(Object.values(recorderFormData).every(k => k !== "" && k.length !== 0)){
+        if(Object.values(recorderFormData).every(k => k !== "" || k.length !== 0)){
             this.props.createRecording(recorderFormData)
             this.setState({displayErrors: false})
             alert("Successfully Saved!")

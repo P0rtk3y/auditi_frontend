@@ -48,7 +48,7 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
             case "quotes":
                 return "#AECBDF"
             case "music":
-                return "#DFC2AE"
+                return "#B75FD6"
             case "nature":
                 return "#AEDFC1"
             case "personal":
@@ -169,10 +169,10 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
                                 </p>
                             </Modal.Content>
                             <Modal.Actions>
-                                <Button color='green' inverted onClick={e => handleDeleteClick()}>
+                                <Button id='delete-button' color='green' inverted onClick={e => handleDeleteClick()}>
                                     <Icon name='checkmark' /> Yes
                                 </Button>
-                                <Button color='red' inverted onClick={e => setModal(false)}>
+                                <Button id='delete-button' color='red' inverted onClick={e => setModal(false)}>
                                     <Icon name='checkmark'/> No
                                 </Button>
                             </Modal.Actions>

@@ -55,6 +55,7 @@ p {
   color: rgb(33, 103, 105)
 }
 
+/* navbar */
 
 .ui.menu.fixed .item:first-child :last-child {
   margin: 10px 0px;
@@ -123,6 +124,8 @@ div.ui.four.cards {
   width: 1068px;
 
 }
+
+/* recorder graphics */
 
 .cassette {
   margin: 0px 140px 0px 390px;
@@ -230,10 +233,11 @@ div.field.soundster-input-box :first-child{
   width: 1000px;
 }
 
-/* div.extra.content {
-  background-color: rgba(248, 117, 139, 0.411)
-} */
+form.ui.form.displayErrors * {
+  border-color: red;
+}
 
+/*buttons*/
 
 button.ui.button {
   width: 150px;
@@ -246,10 +250,17 @@ button.ui.button {
   width: 220px;
 }
 
-
-form.ui.form.displayErrors * {
-  border-color: red;
+button.ui.orange.button {
+  width: 120px;
+  height: 60px;
+  margin: -2px 0px;
 }
+
+#delete-button {
+  height: 50px;
+}
+
+
 
 #category-icon {
   margin: 0px 5px 5px 0px;

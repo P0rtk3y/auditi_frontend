@@ -66,7 +66,8 @@ i.pink.bullhorn.huge.icon {
 }
 
 div.ui.icon.input {
-  margin-right: 200px
+  margin-right: 200px;
+  padding: 0px
 }
 
 i.olive.microphone.huge.icon {
@@ -233,8 +234,11 @@ div.field.soundster-input-box :first-child{
   background-color: rgba(248, 117, 139, 0.411)
 } */
 
+
 button.ui.button {
-  width: 110px;
+  width: 150px;
+  padding: 0px;
+  margin: 2px 2px 1px 2px;
 }
 
 .tag-button-container {
@@ -245,4 +249,22 @@ button.ui.button {
 
 form.ui.form.displayErrors * {
   border-color: red;
+}
+
+#category-icon {
+  margin: 0px 5px 5px 0px;
+}
+
+i.play.circle.outline.icon {
+  padding: 0px;
+  margin: -22px 0px 0px 0px;
+}
+
+
+div.ui.large.circular.label.count {
+  color: black;
+  background-color: #D8ECE8;
+  font-size: 15px;
+  padding: 0px;
+  margin: 20px 0px 0px 0px;
 }

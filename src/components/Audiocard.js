@@ -16,9 +16,10 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
         newDate = new Date(convertDate).toDateString()
     }
 
-    //play on hover
+    //play on click
     const playSound = () => {
         console.log("PLAYING RECORDING")
+        console.log(playSound.count)
         if(audiocard.attributes.soundfile){
             const getSound = new Pizzicato.Sound({
                 source: 'file',
@@ -42,7 +43,7 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
         setModal(false)
     }
 
-    const addColor = (category) => {
+    const addColor = category => {
         switch(category){
             case "quotes":
                 return "#AECBDF"
@@ -50,7 +51,7 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
                 return "#DFC2AE"
             case "nature":
                 return "#AEDFC1"
-            case "Personal":
+            case "personal":
                 return "#DFB3AE"
             case "joke":
                 return "#C99EDB"
@@ -61,7 +62,27 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
         }
     }
 
-    const modifyCardContent = (id) => {
+    const addIcon = category => {
+        switch(category){
+            case "quotes":
+                return "comment alternate"
+            case "music":
+                return "music"
+            case "nature":
+                return "leaf"
+            case "personal":
+                return "user secret"
+            case "joke":
+                return "smile"
+            case "health":
+                return "hand spock"
+            default:
+                return "find"
+        }
+    }
+
+
+    const modifyCardContent = id => {
         let oldHeader = audiocard.attributes.soundster
         let modifyCard = document.querySelector(`div.header.header-${id}`)
             modifyCard.setAttribute('contenteditable', 'true')
@@ -74,7 +95,7 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
         }
     }
 
-    const addFavorite = (audiocard) => {
+    const addFavorite = audiocard => {
         let getIcon = document.querySelector(`a.ui.left.corner.label.icon-${audiocard.id}`).firstElementChild
         !getIcon.className.includes('pink') ? getIcon.className = 'pink bullhorn icon' : getIcon.className = 'bullhorn icon'
         if(getIcon.className.includes('pink')){
@@ -89,19 +110,31 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
     }
    
         return (
-            
                 <Card color="olive">
-                    <Image 
-                        fluid
-                        src={audiocard.attributes.image} 
-                        label={{ 
-                            as: 'a', 
-                            corner: 'left', 
-                            className: `icon-${audiocard.id}`,
-                            icon: audiocard.attributes.favorite ? "pink bullhorn" : "bullhorn"
-                        }}
-                        onClick={e => addFavorite(audiocard)}
-                    />
+                    <Icon.Group size='huge'>
+                        <Image 
+                            fluid
+                            src={audiocard.attributes.image} 
+                            label={{ 
+                                as: 'a', 
+                                corner: 'left',
+                                className: `icon-${audiocard.id}`,
+                                icon: audiocard.attributes.favorite ? "pink bullhorn" : "bullhorn",
+                                onClick: e => addFavorite(audiocard)
+                            }}
+                        />
+                        <Icon 
+                            corner='bottom right' 
+                            inverted
+                            style={{color:addColor(audiocard.attributes.category)}} 
+                            name={addIcon(audiocard.attributes.category)} 
+                            size='large'
+                            id='category-icon'
+                        />
+                        <Icon>
+                            <Count playSound={playSound} />
+                        </Icon>
+                    </Icon.Group>
                     <Card.Content>
                         <Card.Header 
                             className={`header-${audiocard.id}`} 
@@ -110,9 +143,6 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
                         <Card.Meta>
                             <span className='date'>Created on {newDate}</span>
                         </Card.Meta>
-                        <Card.Description style={{color:addColor(audiocard.attributes.category)}}>
-                            ({audiocard.attributes.category})
-                        </Card.Description>
                     </Card.Content>
                     <div className='icon-container'>
                         <Card.Content extra>
@@ -122,7 +152,6 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
                                 </Grid.Row>
                             </Grid>
                         </Card.Content>
-                        <Count playSound={playSound}/>
                     </div>
                     <Label corner='right' 
                         color='yellow' 

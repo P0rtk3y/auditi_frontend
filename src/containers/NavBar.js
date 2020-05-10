@@ -1,5 +1,5 @@
 import React from 'react'
-import { Menu, Icon, Search, Button, Modal, Input } from 'semantic-ui-react'
+import { Menu, Icon, Search, Button, Modal } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Login from '../components/Login'

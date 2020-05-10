@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button} from 'semantic-ui-react'
+import {Icon, Label} from 'semantic-ui-react'
 class Count extends React.Component{
     constructor(props){
         super(props)
@@ -14,13 +14,22 @@ class Count extends React.Component{
     )
 
     render(){
-        console.log(this.props)
         return(
             <div>
-                <Button onClick={this.playAndIncrement}>Play (Count:{this.state.count})</Button>
+               
+                <Label className="count" circular size='large'>
+                    {this.state.count}
+                </Label>    
+                <Icon 
+                    onClick={this.playAndIncrement} 
+                    name='play circle outline' 
+                    style={{color: "#D8ECE8"}}
+                    count={this.state.count}
+                />
             </div>
         )
     }
 }
 
 export default Count 
+

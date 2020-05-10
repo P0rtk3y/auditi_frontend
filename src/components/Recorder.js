@@ -75,7 +75,7 @@ class Recorder extends React.Component {
 
     addTag = e => {
         let newNoSpaceTag = `${e.target.value.trim()}`
-        if(!this.state.tags.includes(newNoSpaceTag)){
+        if(!this.state.tags.includes(newNoSpaceTag) && this.state.tags.length < 5){
             this.setState({
                 tags: [...this.state.tags, newNoSpaceTag]
             })
@@ -160,7 +160,7 @@ class Recorder extends React.Component {
 
         //options for category input
         const categoryOptions = [
-            { key:1, value: 'quotes', text: 'Quotes', icon: 'book'},
+            { key:1, value: 'quotes', text: 'quotes', icon: 'comment alternate'},
             { key:2, text: 'Music', value: 'music', icon: 'music'},
             { key:3, text: 'Nature', value: 'nature', icon: 'leaf'},
             { key:4, text: 'Joke', value: 'joke', icon: 'smile'},
@@ -200,7 +200,7 @@ class Recorder extends React.Component {
                             <div className='tag-input' style={{width: "550px"}}>
                                     <Grid>
                                         <Grid.Row columns={2}>
-                                            <Grid.Column>
+                                            <Grid.Column width={6}>
                                                 <OnEvent space={this.addTag}>
                                                     <Form.Input
                                                         style={{width: "200px"}}
@@ -213,7 +213,7 @@ class Recorder extends React.Component {
                                                     </Form.Input>
                                                 </OnEvent>
                                             </Grid.Column>
-                                            <Grid.Column>
+                                            <Grid.Column width={10}>
                                                 <Grid>
                                                     <Grid.Row columns={2}>
                                                             {this.state.tags.map((tag, index) => {

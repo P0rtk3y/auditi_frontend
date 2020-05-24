@@ -12,24 +12,24 @@ export const updateAudioForm = formData => {
 export const createRecording = formData => {
     console.log(formData)
     return dispatch => {
-        const audiocardData = { 
-            audiocard: {
-                category: formData.category,
-                tags: formData.tags,
-                soundfile: formData.soundfile,
-                soundster: formData.soundster,
-                image: formData.image,
-                favorite: formData.favorite,
-                user_id: formData.user_id
-            }  
-        }
+        // const audiocardData = { 
+        //     audiocard: {
+        //         category: formData.category,
+        //         tags: formData.tags,
+        //         soundfile: formData.soundfile,
+        //         soundster: formData.soundster,
+        //         image: formData.image,
+        //         favorite: formData.favorite,
+        //         user_id: formData.user_id
+        //     }  
+        // }
         return fetch("http://localhost:3000/api/v1/audiocards", {
             credentials: "include",
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(audiocardData)
+            // headers: {
+            //     "Content-Type": "application/json"
+            // },
+            body: formData
         })
         
             .then(resp => resp.json())

@@ -3,11 +3,18 @@ import { connect } from 'react-redux'
 import React, {useState} from 'react'
 import Tags from './Tags'
 import Pizzicato from 'pizzicato'
-import Count from './Count.js'
+import Playcontroller from './Playcontroller.js'
 import {confirmDelete, deleteAudiocard, editAudiocard, confirmEdit, favoriteAudiocard, confirmFavorite} from '../actions/myAudioCards'
 
 const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, confirmEdit, favoriteAudiocard, confirmFavorite}) => {
     
+    const [state, setState] = useState({
+        modalState: false,
+        sound: null,
+        playing: false,
+        paused: false,
+        playCount: 0
+    })
     const [modalState, setModal] = useState(false)
 
     let newDate = ''
@@ -19,15 +26,48 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
     //play on click
     const playSound = () => {
         console.log("PLAYING RECORDING")
-        console.log(playSound.count)
-        if(audiocard.attributes.soundfile){
+        console.log(audiocard.attributes)
+        if(audiocard.attributes.sound_url && !state.sound){
             const getSound = new Pizzicato.Sound({
                 source: 'file',
-                options: {path: audiocard.attributes.soundfile}
+                options: {path: audiocard.attributes.sound_url}
             }, () => {
                 getSound.play()
+                setState(prevState => ({...prevState, sound: getSound, playing: true, playCount: prevState.playCount + 1}))
             })
+            getSound.on('end', () => {
+                setState(prevState => ({...prevState, playing: false, paused: false}))
+            })
+            return
         }
+        //if resuming play (not incrementing playCount)
+        console.log(state.sound)
+        console.log(state.sound.sourceNode.buffer.duration)
+        if(!state.playing && state.sound && state.paused){
+            state.sound.play()
+            setState({...state, playing: true})
+        }
+        //if playing again, increment playCount
+        if(!state.playing && state.sound && !state.paused){
+            state.sound.play()
+            setState(prevState => ({...prevState, playing: true, playCount: prevState.playCount + 1}))
+        }
+    }
+
+    // Notes: play pause play 
+                // play stop play
+
+    const pauseSound = () => {
+        console.log("PAUSING")
+        if(state.playing){
+            setState({...state, playing: false, paused: true})
+            state.sound.pause()
+        }
+    }
+
+    const stopSound = () => {
+        console.log("STOPPING")
+        // if(state.playing && state.sound)
     }
 
 
@@ -132,7 +172,7 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
                             id='category-icon'
                         />
                         <Icon>
-                            <Count playSound={playSound} />
+                            <Playcontroller playOrPause={state.playing ? pauseSound : playSound} playing={state.playing} playCount={state.playCount}/>
                         </Icon>
                     </Icon.Group>
                     <Card.Content>

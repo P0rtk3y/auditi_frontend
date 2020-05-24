@@ -266,7 +266,7 @@ button.ui.orange.button {
   margin: 0px 5px 5px 0px;
 }
 
-i.play.circle.outline.icon {
+i.play.circle.outline.icon, i.pause.circle.outline.icon {
   padding: 0px;
   margin: -22px 0px 0px 0px;
 }

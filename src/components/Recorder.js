@@ -34,11 +34,11 @@ class Recorder extends React.Component {
     }
 
     playRecording = () => {
-        if (this.state.soundfile) {
-            this.state.soundfile.play()
+        if (this.state.blob){
+            // this.state.blob.play()
             // let newAudio = new Audio(this.state.soundfile)
-            // let newAudio = new Audio(this.state.blob)
-            // newAudio.play()
+            let newAudio = new Audio(this.state.blob)
+            newAudio.play()
         } else {
             console.log("no sound")
         }
@@ -46,15 +46,23 @@ class Recorder extends React.Component {
 
     
     onStop = (micFeedback) => {
+        console.log(micFeedback)
         const getSound = new Pizzicato.Sound({
             source: 'file',
             options: {path: micFeedback.blobURL}
         }, () => {
-            this.setState({soundfile: getSound})
+            // this.setState({soundfile: getSound}
+            let fileNameLength = micFeedback.blobURL.split('/').length
+            let fileName = micFeedback.blobURL.split('/')[fileNameLength - 1] + '.webm'
+            let file = new File([micFeedback.blob], fileName, {type:micFeedback.blob.type})
+            // console.log(file)
+            this.setState({soundfile: file})
             this.setState({blob: micFeedback.blobURL})
             // this.props.addRecording({soundfile: getSound, blob: micFeedback.blobURL}
         })
     }
+
+    
 
     // onStop = (micFeedback) => {
     //     let url = URL.createObjectURL(micFeedback.blob)
@@ -102,27 +110,39 @@ class Recorder extends React.Component {
 
     handleSubmit = e => {
         e.preventDefault()
-        const recorderFormData = {
-            category: this.state.category,
-            tags: this.state.tags,
-            soundfile: this.state.blob,
-            soundster: this.state.soundster,
-            image: `https://loremflickr.com/g/200/200/${this.state.tags[0]}`,
-            favorite: false,
-            user_id: this.props.userId
-            // storedBlob: this.state.blob
-        }
+
+         
+        // const recorderFormData = {
+        //     category: this.state.category,
+        //     tags: this.state.tags,
+        //     soundfile: this.state.soundfile,
+        //     soundster: this.state.soundster,
+        //     image: `https://loremflickr.com/g/200/200/${this.state.tags[0]}`,
+        //     favorite: false,
+        //     user_id: this.props.userId
+        //     // storedBlob: this.state.blob
+        // }
+
+        let formData = new FormData()
+        formData.append('audiocard[soundfile]', this.state.soundfile)
+        formData.append('audiocard[category]', this.state.category)
+        formData.append('audiocard[tags]', JSON.stringify(this.state.tags))
+        formData.append('audiocard[soundster]', this.state.soundster)
+        formData.append('audiocard[image]', `https://loremflickr.com/g/200/200/${this.state.tags[0]}`)
+        formData.append('audiocard[favorite]', false)
+        formData.append('audiocard[user_id]', this.props.userId)
+        
         // this.props.updateAudioForm(recorderFormData)
 
         // blob conversion
         // let newAudio = new Audio(this.state.blob)
-
         
         
-        if(Object.values(recorderFormData).every(k => k !== "" || k.length !== 0)){
-            this.props.createRecording(recorderFormData)
+        
+        if(Object.values(this.state).every(k => k !== "" || k.length !== 0)){
             this.setState({displayErrors: false})
             alert("Successfully Saved!")
+            this.props.createRecording(formData)
         } else {
             return this.setState({displayErrors: true})
         }
@@ -243,7 +263,7 @@ class Recorder extends React.Component {
                             onStop={this.onStop}
                             strokeColor="#D4E6D7"
                             backgroundColor="#8FC6B4"
-                            mimeType="audio/mp3" 
+                            mimeType="audio/webm" 
                             duration={30}
                             />
                     </div>

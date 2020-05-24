@@ -6,7 +6,6 @@ const Playcontroller = ({playing, playOrPause, playCount}) => {
 
     return(
         <div>
-    
             <Label className="count" circular size='large'>
                 {playCount}
             </Label>    

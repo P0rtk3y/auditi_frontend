@@ -21,7 +21,8 @@ class Recorder extends React.Component {
         soundster: '',
         blob: '',
         favorite: false,
-        displayErrors: false
+        displayErrors: false,
+        playing: false
         }
       }
     
@@ -34,14 +35,13 @@ class Recorder extends React.Component {
     }
 
     playRecording = () => {
-        if (this.state.blob){
-            // this.state.blob.play()
-            // let newAudio = new Audio(this.state.soundfile)
-            let newAudio = new Audio(this.state.blob)
-            newAudio.play()
-        } else {
-            console.log("no sound")
-        }
+        if (this.state.blob && this.state.playing){
+            this.state.blob.play()
+        } 
+    }
+
+    stopRecording = () => {
+        this.state.blob.pause()
     }
 
     
@@ -57,9 +57,10 @@ class Recorder extends React.Component {
             let file = new File([micFeedback.blob], fileName, {type:micFeedback.blob.type})
             // console.log(file)
             this.setState({soundfile: file})
-            this.setState({blob: micFeedback.blobURL})
+            this.setState({blob: new Audio(micFeedback.blobURL)})
             // this.props.addRecording({soundfile: getSound, blob: micFeedback.blobURL}
         })
+        this.setState({playing: true})
     }
 
     
@@ -167,6 +168,9 @@ class Recorder extends React.Component {
             document.querySelector('.gear1').style.animation = ""
             document.querySelector('.gear2').style.animation = ""
             this.setState({record: false})
+            if(this.state.playing){
+                this.stopRecording()
+            }
             console.log("STOPPING")
         }
 
@@ -279,11 +283,9 @@ class Recorder extends React.Component {
                         <Form.Button type="button" attached='bottom'className='playButton' onClick={playGears}>
                             <Icon name='play' />
                             Play
-                            <audio className='play audio' src=""></audio>
                         </Form.Button>
                         <Form.Button type='Submit' className= 'saveButton' color="orange">
                             <Icon name='paper plane outline' />
-                            <br></br>
                             Save
                         </Form.Button>
                     </Form.Group>

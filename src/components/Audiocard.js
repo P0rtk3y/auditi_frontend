@@ -33,10 +33,10 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
                 options: {path: audiocard.attributes.sound_url}
             }, () => {
                 getSound.play()
-                setState(prevState => ({...prevState, sound: getSound, playing: true, playCount: prevState.playCount + 1}))
+                setState(prevState => ({...prevState, sound: getSound, playing: true}))
             })
             getSound.on('end', () => {
-                setState(prevState => ({...prevState, playing: false, paused: false}))
+                setState(prevState => ({...prevState, playing: false, paused: false, playCount: prevState.playCount + 1}))
             })
             return
         }
@@ -50,7 +50,7 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
         //if playing again, increment playCount
         if(!state.playing && state.sound && !state.paused){
             state.sound.play()
-            setState(prevState => ({...prevState, playing: true, playCount: prevState.playCount + 1}))
+            setState(prevState => ({...prevState, playing: true}))
         }
     }
 
@@ -65,10 +65,6 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
         }
     }
 
-    const stopSound = () => {
-        console.log("STOPPING")
-        // if(state.playing && state.sound)
-    }
 
 
     const tags = JSON.parse(audiocard.attributes.tags)
@@ -172,7 +168,7 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
                             id='category-icon'
                         />
                         <Icon>
-                            <Playcontroller playOrPause={state.playing ? pauseSound : playSound} playing={state.playing} playCount={state.playCount}/>
+                            <Playcontroller playOrPause={state.playing ? pauseSound : playSound} sound={state.sound} playing={state.playing} playCount={state.playCount}/>
                         </Icon>
                     </Icon.Group>
                     <Card.Content>

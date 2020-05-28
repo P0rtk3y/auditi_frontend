@@ -271,6 +271,16 @@ i.play.circle.outline.icon, i.pause.circle.outline.icon {
   margin: -22px 0px 0px 0px;
 }
 
+i.icon.fast.forward {
+  color: #D8ECE8;
+  margin-left: 60px;
+}
+
+i.icon.fast.backward {
+  color: #D8ECE8;
+  margin-left: -60px;
+}
+
 
 div.ui.large.circular.label.count {
   color: black;

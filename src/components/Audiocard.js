@@ -42,6 +42,7 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
         }
         //if resuming play (not incrementing playCount)
         console.log(state.sound)
+        console.log(state.sound.sourceNode.context.currentTime)
         console.log(state.sound.sourceNode.buffer.duration)
         if(!state.playing && state.sound && state.paused){
             state.sound.play()

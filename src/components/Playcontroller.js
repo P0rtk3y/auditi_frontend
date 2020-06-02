@@ -3,6 +3,13 @@ import {Icon, Label} from 'semantic-ui-react'
 
 const Playcontroller = ({playing, playOrPause, sound, playCount}) => {
    
+    const handleRewind = e => {
+        if(sound){
+            sound.stop()
+            sound.play()
+        }
+    }
+    
     const handleFastforward = e => {
         if(sound){
             sound.stop()
@@ -15,7 +22,7 @@ const Playcontroller = ({playing, playOrPause, sound, playCount}) => {
                 {playCount}
             </Label> 
             <Icon 
-                // onClick={e=>handleRewind()}
+                onClick={handleRewind}
                 name='fast backward'
                 size='small'
             />   

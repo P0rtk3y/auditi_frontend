@@ -281,6 +281,11 @@ i.icon.fast.backward {
   margin-left: -60px;
 }
 
+i.icon.retweet {
+  margin-top: -60px;
+  color: #D8ECE8;
+}
+
 
 div.ui.large.circular.label.count {
   color: black;

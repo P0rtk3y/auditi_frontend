@@ -13,7 +13,8 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
         sound: null,
         playing: false,
         paused: false,
-        playCount: 0
+        playCount: 0,
+        loop: false
     })
     const [modalState, setModal] = useState(false)
 
@@ -27,6 +28,7 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
     const playSound = () => {
         console.log("PLAYING RECORDING")
         console.log(audiocard.attributes)
+        //load sound if not played before
         if(audiocard.attributes.sound_url && !state.sound){
             const getSound = new Pizzicato.Sound({
                 source: 'file',
@@ -36,12 +38,12 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
                 setState(prevState => ({...prevState, sound: getSound, playing: true}))
             })
             getSound.on('end', () => {
+                console.log("ENDING")
                 setState(prevState => ({...prevState, playing: false, paused: false, playCount: prevState.playCount + 1}))
             })
             return
         }
-        //if resuming play (not incrementing playCount)
-        console.log(state.sound)
+        //if resuming play (don't incrementing playCount)
         console.log(state.sound.sourceNode.context.currentTime)
         console.log(state.sound.sourceNode.buffer.duration)
         if(!state.playing && state.sound && state.paused){
@@ -63,9 +65,25 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
         if(state.playing){
             setState({...state, playing: false, paused: true})
             state.sound.pause()
+            console.log(state)
         }
     }
 
+    const handleLoop = () => {
+        console.log("LOOPING")
+        state.sound.stop()
+        state.sound.loop = true
+        setState(prevState => ({...prevState, loop: state.sound.loop}))
+        state.sound.play()
+    }
+
+    const stopLoop = () => {
+        console.log("STOP LOOPING")
+        state.sound.stop()
+        state.sound.loop = false
+        setState(prevState => ({...prevState, loop: state.sound.loop}))
+        state.sound.play()
+    }
 
 
     const tags = JSON.parse(audiocard.attributes.tags)
@@ -169,7 +187,15 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
                             id='category-icon'
                         />
                         <Icon>
-                            <Playcontroller playOrPause={state.playing ? pauseSound : playSound} sound={state.sound} playing={state.playing} playCount={state.playCount}/>
+                            <Playcontroller 
+                                playOrPause={state.playing ? pauseSound : playSound} 
+                                sound={state.sound} 
+                                playing={state.playing} 
+                                playCount={state.playCount} 
+                                id={audiocard.id}
+                                loop={state.loop}
+                                handleLoop={state.loop ? stopLoop : handleLoop}
+                            />
                         </Icon>
                     </Icon.Group>
                     <Card.Content>

@@ -72,19 +72,12 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
     const handleLoop = () => {
         console.log("LOOPING")
         state.sound.stop()
-        state.sound.loop = true
+        state.sound.loop ? state.sound.loop = false : state.sound.loop = true
         setState(prevState => ({...prevState, loop: state.sound.loop}))
-        state.sound.play()
+        if(state.sound.playing){
+            state.sound.play()
+        }
     }
-
-    const stopLoop = () => {
-        console.log("STOP LOOPING")
-        state.sound.stop()
-        state.sound.loop = false
-        setState(prevState => ({...prevState, loop: state.sound.loop}))
-        state.sound.play()
-    }
-
 
     const tags = JSON.parse(audiocard.attributes.tags)
 
@@ -194,7 +187,7 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
                                 playCount={state.playCount} 
                                 id={audiocard.id}
                                 loop={state.loop}
-                                handleLoop={state.loop ? stopLoop : handleLoop}
+                                handleLoop={state.sound ? handleLoop : null}
                             />
                         </Icon>
                     </Icon.Group>

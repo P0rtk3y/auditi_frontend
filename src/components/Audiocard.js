@@ -44,8 +44,8 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
             return
         }
         //if resuming play (don't incrementing playCount)
-        console.log(state.sound.sourceNode.context.currentTime)
-        console.log(state.sound.sourceNode.buffer.duration)
+        // console.log(state.sound.sourceNode.context.currentTime)
+        // console.log(state.sound.sourceNode.buffer.duration)
         if(!state.playing && state.sound && state.paused){
             state.sound.play()
             setState({...state, playing: true})
@@ -65,7 +65,6 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
         if(state.playing){
             setState({...state, playing: false, paused: true})
             state.sound.pause()
-            console.log(state)
         }
     }
 
@@ -74,9 +73,11 @@ const Audiocard = ({audiocard, confirmDelete, deleteAudiocard, editAudiocard, co
         state.sound.stop()
         state.sound.loop ? state.sound.loop = false : state.sound.loop = true
         setState(prevState => ({...prevState, loop: state.sound.loop}))
-        if(state.sound.playing){
-            state.sound.play()
-        }
+        
+        // if(state.sound.playing){
+        //     state.sound.play()
+        //     setState(prevState => ({...prevState, playCount: prevState.playCount + 1}))
+        // }
     }
 
     const tags = JSON.parse(audiocard.attributes.tags)
